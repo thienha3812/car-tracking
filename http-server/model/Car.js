@@ -10,6 +10,10 @@ var CarSchema = new Schema({
         type: String,
         unique : true,
         default : ''
+    },
+    category_id : {
+        type : Schema.Types.ObjectId,
+        ref : 'Category'
     }
 }, {
     collection: "Car",

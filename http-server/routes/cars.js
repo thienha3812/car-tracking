@@ -8,7 +8,8 @@ router.get('/', function(req, res, next) {
 router.post('/insert',function(req,res,next){
     var c = new Car()
     c.c_plate = req.body.plate
-    c.d_IMEI = req.body.imei 
+    c.d_IMEI = req.body.imei
+    c.category_id = req.body.category_id 
     c.save(function(err){
       if(err){
         if(err.code === 11000){
