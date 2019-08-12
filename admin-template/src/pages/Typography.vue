@@ -36,7 +36,7 @@
         </md-card>
       </div>
     </div>
-    <md-dialog class="mapDialog"  :md-active.sync="activeDialog">
+    <md-dialog class="mapDialog"  md-fullscreen :md-active.sync="activeDialog">
       <div class="md-layout">
         <div class="md-layout-item md-size-80" style="padding:0">
           <GmapMap
@@ -165,7 +165,7 @@ export default {
 <style lang="scss" scoped>
 .md-dialog {
   min-width: 100%;
-  min-height: 768px;
+  min-height: auto;
 }
 .vdp-datepicker {
   .vdp-datepicker__calendar {

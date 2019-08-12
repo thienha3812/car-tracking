@@ -1,10 +1,11 @@
 <template>
   <div>
-    <GmapMap :center="center" :zoom="10" style="width: 100%; height: 90vh">
+    <GmapMap :center="center" :zoom="7" style="width: 100%; height: 90vh">
       <gmap-marker
         v-for="(m,index) in list"
         :key="index"
-        :position="m.location"
+        :position="m.location"        
+        infoText =  "Marker #1"
         :icon="{url:require('../assets/img/automobile (1).png')}"
       ></gmap-marker>
     </GmapMap>
@@ -39,14 +40,40 @@
         <div style="display:flex;flex-direction:column">
           <span><b>Biển số xe :</b> {{l.car_information.c_plate}}</span>
           <span style="display:flex">
-            <md-button class="primary" @click="showDetailDialog = true">Chi tiết</md-button>
+            <md-button class="primary" @click="showDetailDialog = true;selectedIndex=index">Chi tiết</md-button>
             <md-button class="danger" @click.stop.prevent="setCenter(l,$event)">Theo dõi</md-button>            
           </span>
         </div>
       </div>
     </div>
     <!-- Đây là dialog --->
-    <md-dialog  :md-active.sync="showDetailDialog">
+    <md-dialog  md-fullscreen :md-active.sync="showDetailDialog">
+      <div class="md-layout">
+        <div class="md-size-80 md-layout-item" style="padding:0">
+          <GmapMap
+            v-if="selectedIndex!=null"           
+            :center="list[selectedIndex].location"
+            :zoom="16"
+            style="width: 100%; height: 100vh"
+          >
+            <gmap-marker
+              v-if="selectedIndex!=null"           
+              :position="list[selectedIndex].location"     
+              :icon="{url:require('../assets/img/automobile (1).png')}"
+            >
+
+            </gmap-marker>
+          </GmapMap>
+        </div>
+        <div class="md-layout-item">
+            <div class="md-layout" style="display:flex">
+                <div class="md-layout-item">
+                    <h1>+ Thông tin chi tiết của xe</h1>
+                    <small v-if="selectedIndex!=null">Vận tốc hiện tại: {{list[selectedIndex].speed}} km/h</small>
+                </div>
+            </div>
+        </div>
+      </div>
       <md-dialog-actions>
         <md-button class="md-primary" @click="showDetailDialog = false">Đóng</md-button>        
       </md-dialog-actions>
@@ -66,20 +93,22 @@ export default {
     return {
       socket: io("http://117.2.128.107:5023"),
       location: new Object(),
-      center: { lat: 11, lng: 110 },
-      m: [],
+      center: { lat: null, lng: null },      
       topPosition: "md-bottom-left",
       isShow: false,
       list: [],
-      showDetailDialog : false
+      showDetailDialog : false,
+      selectedIndex : null
     };
   },
   mounted() {
     var vm = this;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      vm.center.lat = position.coords.latitude;
-      vm.center.lng = position.coords.longitude;
-    });
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   vm.center.lat = position.coords.latitude;
+    //   vm.center.lng = position.coords.longitude;
+    // });
+    vm.center.lat = 12
+    vm.center.lng = 109
     this.location.lng = 10;
     this.location.lat = 10;
     this.socket.on("connect", function() {
@@ -93,13 +122,12 @@ export default {
     });
   },
   methods: {
-    getPlace(data) {
-      console.log(data)
+    getPlace(data) {    
       let index = this.list.findIndex(function(x){
         return x.car_information.d_IMEI == data.car_information.d_IMEI
-      })     
-      console.log(index)
+      })           
       if(index <0){
+        data.index = index // Thêm vị tri cho object
         this.list.push(data)
       }else{
         this.list[index].location = data.location
@@ -111,13 +139,21 @@ export default {
       this.center.lng = data.location.lng;
     },
     showDiaLog() {
-      console.log(this.isShow);
       return (this.isShow = true);
     }
-  }
+  },
+  watch: {
+    selectedIndex : function(newVal,oldVal){
+      console.log(newVal)
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
+.md-dialog {
+  min-width: 100%;
+  min-height: 90%;
+}
 .primary {
   background: #448aff !important;
   width:10%;
