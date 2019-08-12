@@ -10,6 +10,7 @@ var carRouter = require('./routes/cars');
 var driverRouter = require('./routes/drivers');
 var logRouter = require('./routes/log');
 var categoryRouter = require('./routes/category');
+var userRouter = require("./routes/user");
 var app = express();
 var cors = require('cors')
 // view engine setup
@@ -27,6 +28,7 @@ app.use('/cars', carRouter);
 app.use('/drivers',driverRouter);
 app.use('/log',logRouter)
 app.use('/category',categoryRouter)
+app.use('/user',userRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

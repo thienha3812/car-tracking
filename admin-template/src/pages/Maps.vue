@@ -6,6 +6,7 @@
         :key="index"
         :position="m.location"        
         infoText =  "Marker #1"
+         @click="showDetailDialog = true;selectedIndex=index"
         :icon="{url:require('../assets/img/automobile (1).png')}"
       ></gmap-marker>
     </GmapMap>

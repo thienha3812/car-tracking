@@ -51,6 +51,7 @@ Vue.use(VueLodash, options) // options is optional
 Vue.use(VueMaterial)
 // configure router
 const router = new VueRouter({
+  mode :"history",
   routes, // short for routes: routes
   linkExactActiveClass: "nav-item active"
 });
