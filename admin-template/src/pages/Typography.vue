@@ -36,28 +36,37 @@
         </md-card>
       </div>
     </div>
-    <md-dialog class="mapDialog" md-fullscreen :md-active.sync="activeDialog">
+    <md-dialog class="mapDialog"  :md-active.sync="activeDialog">
       <div class="md-layout">
         <div class="md-layout-item md-size-80" style="padding:0">
           <GmapMap
             :center="{lat:latCenter, lng:lngCenter}"
             :zoom="14"
-            style="width: 100%; height: 90vh"
+            style="width: 100%; height: 100vh"
           >
             <gmap-marker v-for="(m,index) in selectedRecord" :key="index" :position="m"></gmap-marker>
           </GmapMap>
         </div>
         <div class="md-layout-item" style="padding:0">
-          <div class="md-layout" style="margin-top:10%">
+           <div class="md-layout" style="margin-top:10%">
+             
+           </div>
+          <div class="md-layout" style="margin-top:10%;flex-direction:column;align-items:center">
+            <div class="md-layout-item">
+              <h3><b>Khoảng thời gian chạy</b></h3>
+             </div>
               <div class="md-layout-item">
                   <el-time-picker
                     is-range                   
                      v-model="value1"
                      @change="timeChange"
-                    range-separator="To"
+                    range-separator="Đến"
                     start-placeholder="Start time"
                     end-placeholder="End time">
                   </el-time-picker>
+                </div>
+                <div class="md-layout-item">
+                    <md-button style="background: #ff5252 !important;" @click="activeDialog=false">Đóng</md-button>
                 </div>         
           </div>         
         </div>
