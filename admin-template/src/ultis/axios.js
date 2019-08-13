@@ -2,8 +2,8 @@ import axios from 'axios'
 
 
 var config = axios.create({
-    baseURL : "http://117.2.128.107:5024",
-    timeout : 5000
+    baseURL : "http://localhost:5024",
+    timeout : 10000
 })
-axios.interceptors.request
+
 export default config;

@@ -3,10 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 // Database
 require('./model/index')
+// Access Control list 
+var acl = require('./acl.js')
+
+//outer
 var indexRouter = require('./routes/index');
-var carRouter = require('./routes/cars');
+var carRouter = require('./routes/car');
 var driverRouter = require('./routes/drivers');
 var logRouter = require('./routes/log');
 var categoryRouter = require('./routes/category');
@@ -23,19 +28,33 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
+
+// Config ACL
+app.locals.acl = acl
+app.use('/car', function (req, res, next) {
+  console.log('get')
+  next()
+})
+// Config router
 app.use('/', indexRouter);
-app.use('/cars', carRouter);
-app.use('/drivers',driverRouter);
-app.use('/log',logRouter)
-app.use('/category',categoryRouter)
-app.use('/user',userRouter)
+app.use('/car', carRouter);
+app.use('/drivers', driverRouter);
+app.use('/log', logRouter)
+app.use('/category', categoryRouter)
+app.use('/user', userRouter)
+// Disable e-tag
+app.disable('etag')
+// Config session
+//Config middleware 
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
+
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
