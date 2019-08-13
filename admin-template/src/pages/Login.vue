@@ -1,18 +1,50 @@
 <template>
-    <div class="loginPage">
-        <md-field>
-      <label>Tài khoản</label>
-      <md-input v-model="initial"></md-input>
-    </md-field>
-    <md-field>
-      <label>Mật khẩu</label>
-      <md-input v-model="initial"></md-input>
-    </md-field>
+  <div class="loginPage">
+    <div class="md-layout md-alignment-center-center">
+      <div class="md-layout-item md-size-35">
+        <md-card>
+          <div class="md-layout" style="flex-direction:column">
+            <div class="md-layout-item">
+              <md-field>
+                <label  class="title"><b>TÀI KHOẢN</b></label>
+                <md-input></md-input>
+              </md-field>
+            </div>
+            <div class="md-layout-item">
+              <md-field>
+                <label class="title"><b>MẬT KHẨU</b></label>
+                <md-input type="password"></md-input>
+              </md-field>
+            </div>
+            <div class="md-layout-item" style="display:flex;justify-content:center">
+                <md-card-actions>
+                    <md-button class="login_btn">ĐĂNG NHẬP</md-button>            
+                </md-card-actions>
+            </div>
+          </div>
+        </md-card>
+      </div>
     </div>
+  </div>
 </template>
-
 <script>
 export default {
     
 }
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+body {
+  background: white !important;
+}
+
+</style>
+<style lang="scss" scoped>
+
+.title{
+    font-family: 'Ubuntu', sans-serif !important;
+}
+.login_btn{
+    background: #065535 !important;
+}
+</style>
