@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.DeviceNeedCheck"},{"v":2,"key":{"IMEI":1},"name":"IMEI_1","ns":"tracking.DeviceNeedCheck","background":true}],"uuid":"98ea3aa34ce5438ea15f7bebf39f73d3"}
