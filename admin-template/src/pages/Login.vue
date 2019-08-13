@@ -18,7 +18,7 @@
             </div>
             <div class="md-layout-item" style="display:flex;justify-content:center">
                 <md-card-actions>
-                    <md-button class="login_btn">ĐĂNG NHẬP</md-button>            
+                    <md-button @click="login" class="login_btn">ĐĂNG NHẬP</md-button>            
                 </md-card-actions>
             </div>
           </div>
@@ -29,7 +29,20 @@
 </template>
 <script>
 export default {
-    
+    name : "",
+    data(){
+        return  {
+
+        }
+    },
+    mounted() {
+        
+    },
+    methods :{
+        login(){
+            
+        }
+    }
 }
 </script>
 <style>

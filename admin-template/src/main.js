@@ -42,6 +42,9 @@ import locale from 'element-ui/lib/locale/lang/vi'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+//Store 
+import store from './store/store'
+
 const options = { name: 'lodash' } // customize the way you want to call it
 //
 Vue.use(ElementUI,{locale});
