@@ -47,29 +47,29 @@ import store from './store/store'
 
 const options = { name: 'lodash' } // customize the way you want to call it
 //
-Vue.use(ElementUI,{locale});
+Vue.use(ElementUI, { locale });
 //
 Vue.use(VueLodash, options) // options is optional
 //
 Vue.use(VueMaterial)
 // configure router
 const router = new VueRouter({
-  mode :"history",
+  mode: "history",
   routes, // short for routes: routes
   linkExactActiveClass: "nav-item active"
 });
 
 Vue.prototype.$Chartist = Chartist;
-Vue.use(VueGoogleMaps,{
+Vue.use(VueGoogleMaps, {
   load: {
-    region  : 'VI',
-    language : 'VI',
+    region: 'VI',
+    language: 'VI',
     key: 'AIzaSyDjc2vgeLo3K-Ts3fDUzhgczsqOqHNjou8',
     libraries: 'places', // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)
- 
+
     //// If you want to set the version, you can do so:
     // v: '3.26',
   },
@@ -85,6 +85,7 @@ new Vue({
   el: "#app",
   render: h => h(App),
   router,
+  store,
   data: {
     Chartist: Chartist
   }

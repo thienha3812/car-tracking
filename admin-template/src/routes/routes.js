@@ -1,19 +1,17 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
-import UserProfile from "@/pages/UserProfile.vue";
-import TableList from "@/pages/TableList.vue";
-import Typography from "@/pages/Typography.vue";
-import Icons from "@/pages/Icons.vue";
-import Maps from "@/pages/Maps.vue";
-import Notifications from "@/pages/Notifications.vue";
-import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
-import Login from '@/pages/Login'
+import DanhSachTaiXe from "@/pages/DanhSachTaiXe.vue";
+import DanhSachThietBi from "@/pages/DanhSachThietBi.vue";
+import LichSu from "@/pages/LichSu.vue";
+import BanDo from "@/pages/BanDo.vue";
+
+import DangNhap from '@/pages/DangNhap'
 const routes = [
   {
     path: "/login",
     name : "Login",
-    component : Login
+    component : DangNhap
   },
   {
     path: "/",
@@ -22,47 +20,32 @@ const routes = [
     children: [     
       {
         path: "dashboard",
-        name: "Dashboard",
+        name: "Bảng điều khiển",
         component: Dashboard
       },
       {
         path: "danh-sach-tai-xe",
-        name: "User Profile",
-        component: UserProfile
+        name: "Danh sách tài xế",
+        component: DanhSachTaiXe
       },
       {
         path: "danh-sach-thiet-bi",
-        name: "Table List",
-        component: TableList
+        name: "Danh sách thiết bị",
+        component: DanhSachThietBi
       },
       {
         path: "lich-su",
-        name: "Typography",
-        component: Typography
-      },
-      {
-        path: "icons",
-        name: "Icons",
-        component: Icons
-      },
+        name: "Lịch sử",
+        component: LichSu
+      },    
       {
         path: "ban-do",
-        name: "Maps",
+        name: "Bản đồ",
         meta: {
           hideFooter: true
         },
-        component: Maps
-      },
-      {
-        path: "notifications",
-        name: "Notifications",
-        component: Notifications
-      },
-      {
-        path: "upgrade",
-        name: "Upgrad",
-        component: UpgradeToPRO
-      }
+        component: BanDo
+      },        
     ]
   }
 ];

@@ -3,13 +3,13 @@ import Vuex from 'vuex';
 import userModule from './user/index';
 
 
-
 Vue.use(Vuex)
 
 
-
-export default new Vuex({
-    modules : {
-        user : userModule        
+const store = new Vuex.Store({
+    modules: {
+        userModule
     }
-})
+});
+
+export default store;

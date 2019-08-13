@@ -81,7 +81,7 @@ export default {
     },
     onConfirm() {
       deleteCar(this.selectedRecord)
-        .then(result => {
+        .then(() => {
           this.$message({
             message: "Xóa thành công",
             type: "success"

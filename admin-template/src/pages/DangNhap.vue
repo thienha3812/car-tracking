@@ -40,7 +40,7 @@ export default {
     },
     methods :{
         login(){
-            
+            console.log(this.$store.state.userModule)
         }
     }
 }
