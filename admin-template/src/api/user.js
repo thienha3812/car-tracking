@@ -16,3 +16,10 @@ export function userLogout(){
         return err
     })
 }
+export function userRegister(user){
+    return axios.post('/user/register',user).then(()=>{
+        return 
+    }).catch(err=>{
+        return err
+    })
+}
