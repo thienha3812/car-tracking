@@ -11,19 +11,19 @@
           data-background-color="blue"
         >
           <template slot="content">
-            <h4 class="title">Daily Sales</h4>
+            <h4 class="title">Lượt chạy tháng qua</h4>
             <p class="category">
               <span class="text-success"
                 ><i class="fas fa-long-arrow-alt-up"></i> 55%
               </span>
-              increase in today sales.
+              tăng lên.
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              updated 4 minutes ago
+              Cập nhật 4 phút trước
             </div>
           </template>
         </chart-card>
@@ -39,16 +39,16 @@
           data-background-color="red"
         >
           <template slot="content">
-            <h4 class="title">Email Subscription</h4>
+            <h4 class="title">Số chyến chạy hàng tháng</h4>
             <p class="category">
-              Last Campaign Performance
+              '
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              updated 10 days ago
+              Cập nhật 4 phút trước
             </div>
           </template>
         </chart-card>
@@ -63,16 +63,16 @@
           data-background-color="green"
         >
           <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
+            <h4 class="title">Biểu đồ tăng trưởng</h4>
             <p class="category">
-              Last Campaign Performance
+              ''
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              campaign sent 26 minutes ago
+             Cập nhật 4 phút trước
             </div>
           </template>
         </chart-card>
@@ -86,14 +86,14 @@
           </template>
 
           <template slot="content">
-            <p class="category">Revenue</p>
-            <h3 class="title">$34,245</h3>
+            <p class="category">Xe</p>
+            <h3 class="title">34</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>date_range</md-icon>
-              Last 24 Hours
+             24 giờ trước
             </div>
           </template>
         </stats-card>
@@ -107,17 +107,17 @@
           </template>
 
           <template slot="content">
-            <p class="category">Used Space</p>
+            <p class="category">Tài xế</p>
             <h3 class="title">
-              49/50
-              <small>GB</small>
+              49
+              <!-- <small>GB</small> -->
             </h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon class="text-danger">warning</md-icon>
-              <a href="#pablo">Get More Space...</a>
+               <md-icon>local_offer</md-icon>
+              24 giờ trước
             </div>
           </template>
         </stats-card>
@@ -131,14 +131,14 @@
           </template>
 
           <template slot="content">
-            <p class="category">Fixed Issues</p>
+            <p class="category">Tài xế</p>
             <h3 class="title">75</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>local_offer</md-icon>
-              Tracked from Github
+              24 giờ trước
             </div>
           </template>
         </stats-card>
@@ -152,53 +152,18 @@
           </template>
 
           <template slot="content">
-            <p class="category">Folowers</p>
+            <p class="category">Hành trình</p>
             <h3 class="title">+245</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>update</md-icon>
-              Just Updated
+              24 giờ trước
             </div>
           </template>
         </stats-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
-      >
-        <md-card>
-          <md-card-header data-background-color="orange">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
-          </md-card-header>
-          <md-card-content>
-            <ordered-table table-header-color="orange"></ordered-table>
-          </md-card-content>
-        </md-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
-      >
-        <nav-tabs-card>
-          <template slot="content">
-            <span class="md-nav-tabs-title">Tasks:</span>
-            <md-tabs class="md-success" md-alignment="left">
-              <md-tab id="tab-home" md-label="Bugs" md-icon="bug_report">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-pages" md-label="Website" md-icon="code">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-posts" md-label="server" md-icon="cloud">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-            </md-tabs>
-          </template>
-        </nav-tabs-card>
-      </div>
+      </div>     
     </div>
   </div>
 </template>

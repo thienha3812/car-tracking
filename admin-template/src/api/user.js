@@ -1,11 +1,13 @@
 import axios from '../ultis/axios'
 
 
-export function userLogin(){
-    return axios.post('/user/login').then((result)=>{
-        return result.data.token
-    }).catch(err=>{
-        return err
+export function userLogin(user){
+    return new Promise((resolve,reject)=>{
+        axios.post('/user/login',user).then((result)=>{            
+            resolve(result.data.token)
+        }).catch(err=>{    
+            reject(err)
+        })
     })
 }
 

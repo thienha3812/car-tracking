@@ -41,6 +41,10 @@ import VueLodash from 'vue-lodash'
 import locale from 'element-ui/lib/locale/lang/vi'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// Axios config
+
+import axios from './ultis/axios'
+
 
 //Store 
 import store from './store/store'
@@ -58,6 +62,18 @@ const router = new VueRouter({
   routes, // short for routes: routes
   linkExactActiveClass: "nav-item active"
 });
+
+//
+
+router.beforeEach((to,from,next)=>{
+  if(to.path !== '/login' && !store.getters['user/isLoggedIn']){
+    next("/login")
+  }
+  if(to.path === '/login' && store.getters['user/isLoggedIn']){
+    next("/dashboard")
+  }
+  next()
+})
 
 Vue.prototype.$Chartist = Chartist;
 Vue.use(VueGoogleMaps, {
@@ -79,7 +95,10 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
-
+// Config header token
+if(store.getters['user/isLoggedIn']){  
+  axios.defaults.headers.common['Authorization']  = store.state.user.token
+}
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

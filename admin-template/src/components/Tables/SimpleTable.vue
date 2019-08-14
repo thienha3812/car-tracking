@@ -77,7 +77,9 @@ export default {
         this.cars.forEach(function(value, index) {
           value.id = index + 1;
         });
-      });
+      }).catch(err=>{
+        console.log(err)
+      })
     },
     onConfirm() {
       deleteCar(this.selectedRecord)

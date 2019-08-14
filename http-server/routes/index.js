@@ -9,7 +9,7 @@ mongoose.connection.on('connected', function () {
 })
 /* GET home page. */
 router.get('/', function(req, res, next) {  
-  acl.addUserRoles("5d51382f8ec84c1704172671","admin",function(){
+  acl.addUserRoles("5d51382f8ec84c1704172671","user",function(){
     res.send("123")
   })
 });

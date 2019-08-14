@@ -6,29 +6,32 @@ var mongoose = require('module')
 var jwt = require('jsonwebtoken');
 
 
-router.post('/login',function(req,res,next){
-    User.findOne({username : req.body.username,password : req.body.password},function(err,result){
-        if (err) res.send(err)
-        jwt.sign({username : result.username , id: result._id},"carTracking",{expiresIn:60*60},function(err,encoded){
-            if(err) res.sendStatus(500)
-            res.send({token:encoded})
+router.post('/login', async function (req, res, next) {    
+    const user = await User.findOne({ username: req.body.username, password: req.body.password })    
+    if (user) {
+        jwt.sign({ username: user.username, id: user._id }, "carTracking", { expiresIn: 60 * 60 }, function (err, encoded) {
+            if (err) throw err
+            res.json({ token: encoded })
         })
-    })
-})
-router.post('/register',function(req,res,next){
-    const user = {
-        username : req.body.username,
-        password : req.body.password,
-        fullName : req.body.fullName,
-        email : req.body.email,        
+    }else{
+        res.status(501).send("Vui lòng kiểm tra lại thông tin");
     }
-    User.create(user).then((result)=>{
+
+})
+router.post('/register', function (req, res, next) {
+    const user = {
+        username: req.body.username,
+        password: req.body.password,
+        fullName: req.body.fullName,
+        email: req.body.email,
+    }
+    User.create(user).then((result) => {
         console.log(result)
-    }).catch(err=>{
+    }).catch(err => {
         res.statusCode(500)
     })
 })
-router.post('/logout',function(){
+router.post('/logout', function () {
 
 })
 module.exports = router

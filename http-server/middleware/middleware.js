@@ -12,12 +12,11 @@ module.exports.accessControlList = function () {
             if (err) res.send(err)            
             acl.isAllowed(decoded.id, req.originalUrl, req.method, function (err, allowed) {
                 console.log(decoded.id)
-                if (err) res.send(err)
-                console.log(allowed)                
+                if (err) res.send(err)                           
                 if(allowed){
                     next()
                 }else{
-                    res.status(500).send("Bạn không có quyền sử dụng chức năng này")
+                    res.status(500).send({content:"Bạn không có quyền sử dụng chức năng này"})
                 }
             })
         })

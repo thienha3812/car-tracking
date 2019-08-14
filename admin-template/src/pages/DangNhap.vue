@@ -7,13 +7,13 @@
             <div class="md-layout-item">
               <md-field>
                 <label  class="title"><b>TÀI KHOẢN</b></label>
-                <md-input></md-input>
+                <md-input v-model="user.username" type="text"></md-input>
               </md-field>
             </div>
             <div class="md-layout-item">
               <md-field>
                 <label class="title"><b>MẬT KHẨU</b></label>
-                <md-input type="password"></md-input>
+                <md-input v-model="user.password" type="password"></md-input>
               </md-field>
             </div>
             <div class="md-layout-item" style="display:flex;justify-content:center">
@@ -32,7 +32,10 @@ export default {
     name : "",
     data(){
         return  {
-
+          user:{
+            username : "",
+            password : ""
+          }
         }
     },
     mounted() {
@@ -40,7 +43,16 @@ export default {
     },
     methods :{
         login(){
-            console.log(this.$store.state.userModule)
+            this.$store.dispatch("user/login",this.user).then((result)=>{
+              if(result instanceof Error){
+                this.$message({type:"error",message:"Đăng nhập thất bại!"})                
+              }else{
+                this.$message({type:"success",message:"Đăng nhập thành công!"})
+                setTimeout(()=>{
+                  this.$router.push("/dashboard")
+                },2000)
+              }
+            })
         }
     }
 }

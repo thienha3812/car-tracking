@@ -4,9 +4,9 @@ import mutations from './mutations'
 
 
 const userModule = {
+    namespaced: true,
     state : {
-        token : localStorage.getItem("token")  || "",
-        user : "123"
+        token : localStorage.getItem("token")  || "",        
     },
     actions,
     getters,
