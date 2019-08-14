@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.DeviceBalance"},{"v":2,"key":{"d_IMEI":1},"name":"d_IMEI_1","ns":"tracking.DeviceBalance","background":true}],"uuid":"05b4245be8424876bfa9254c8956a3f6"}
