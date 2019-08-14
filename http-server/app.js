@@ -7,7 +7,7 @@ var logger = require('morgan');
 // Database
 require('./model/index')
 // Access Control list 
-var acl = require('./acl.js')
+require('./acl.js')
 
 //outer
 var indexRouter = require('./routes/index');
@@ -17,7 +17,8 @@ var logRouter = require('./routes/log');
 var categoryRouter = require('./routes/category');
 var userRouter = require("./routes/user");
 var app = express();
-var cors = require('cors')
+var cors = require('cors');
+var jwt = require('jsonwebtoken');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -29,15 +30,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
-// Config ACL
-app.locals.acl = acl
-app.use('/car', function (req, res, next) {
-  console.log('get')
-  next()
-})
+//Config middleware 
+var middleware = require('./middleware/middleware');
 // Config router
 app.use('/', indexRouter);
-app.use('/car', carRouter);
+app.use('/car',middleware.accessControlList(), carRouter);
 app.use('/drivers', driverRouter);
 app.use('/log', logRouter)
 app.use('/category', categoryRouter)

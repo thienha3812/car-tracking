@@ -3,14 +3,28 @@ var acl = require('acl')
 
 
 mongoose.connection.on('connected', function () {
-    acl = new acl(new acl.mongodbBackend(mongoose.connection.db, "_acl"));
+    acl = new acl(new acl.mongodbBackend(mongoose.connection.db, "Acl_"));
     acl.allow([
         {
             roles: ['user'],
             allows: [
+                // Car
                 {
-                    resources: ['/api/events', '/api/categories'],
-                    permissions: ['get', 'post', 'put', 'delete'],
+                    resources: ['/car/getall'],
+                    permissions: ['GET'],
+                },
+                {
+                    resources: ['/car/insert','/car/update'],
+                    permissions: ['POST'],
+                },
+                // Driver
+                {
+                    resources: ['/driver/getall'],
+                    permissions: ['GET'],
+                },
+                {
+                    resources: ['/driver/insert','/driver/update'],
+                    permissions: ['POST'],
                 },
             ],
         },
@@ -18,16 +32,15 @@ mongoose.connection.on('connected', function () {
             roles: ['admin'],
             allows: [
                 {
-                    resources: ['/api/users'],
-                    permissions: ['get', 'post', 'put', 'delete'],
+                    resources: ['/car/getall','/car/delete','/car/insert','/car/update'],
+                    permissions: ['GET', 'POST'],
+                    resources: ['/driver/getall','/driver/delete','/driver/insert','/driver/update'],
+                    permissions: ['GET', 'POST'],
                 },
             ],
         },
     ], () => {
         console.log("done")
     });
-    acl.addRoleParents('user', 'guest');
-    acl.addRoleParents('admin', 'user');
-    
 })
 module.exports = acl

@@ -23,7 +23,6 @@ router.post('/insert',function(req,res,next){
     })
 });
 router.post('/delete',function(req,res,next){
-  console.log(req.body)
   Car.findByIdAndRemove({_id : req.body._id},function(err,result){
     if(err){
       res.status(404).send(err)

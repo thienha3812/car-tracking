@@ -5,13 +5,13 @@ var acl = require('acl');
 var mongoose = require('mongoose')
 
 mongoose.connection.on('connected', function () {
-  acl = new acl(new acl.mongodbBackend(mongoose.connection.db, "_acl"));
+  acl = new acl(new acl.mongodbBackend(mongoose.connection.db, "Acl_"));
 })
-
-
 /* GET home page. */
-router.post('/', function(req, res, next) {  
-
+router.get('/', function(req, res, next) {  
+  acl.addUserRoles("5d51382f8ec84c1704172671","admin",function(){
+    res.send("123")
+  })
 });
 
 module.exports = router;  
