@@ -9,16 +9,20 @@ export function getAllCar(){
     })
 }
 export async function insertCar(data){
-    return axios.post('/car/insert',data).then((result)=>{
-        return result
-    }).catch(err=>{
-        return err;
+    return new Promise((resolve,reject)=>{
+        axios.post('/car/insert',data).then((result)=>{
+            resolve(result)
+        }).catch(err=>{
+            resolve(err)
+        })
     })
 }
 export function deleteCar(data){
-    return axios.post('/car/delete',data).then((result)=>{
-        return result
-    }).catch(err=>{
-        return err;
+    return new Promise((resolve,reject)=>{
+        axios.post('/car/delete',data).then((result)=>{
+            resolve(result)
+        }).catch(err=>{
+            resolve(err)
+        })
     })
 }

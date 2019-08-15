@@ -66,7 +66,7 @@ export default {
     return {
       selected: [],
       cars: [],
-      currentCars : [],
+      currentCars: [],
       imei: "",
       plate: "",
       active: false,
@@ -74,10 +74,10 @@ export default {
     };
   },
   created() {
-    var vm  = this 
-    this.$bus.$on("searchUpdate", searchContent => {    
-      if(searchContent.textSearch == ''){
-        this.getList()
+    var vm = this;
+    this.$bus.$on("searchUpdate", searchContent => {
+      if (searchContent.textSearch == "") {
+        this.getList();
       }
       if (this.cars.length > 0) {
         switch (searchContent.phanloai) {
@@ -88,14 +88,14 @@ export default {
             this.cars = [];
             this.cars = currentFilterForPlateNumber;
             break;
-          case "imei_device":            
+          case "imei_device":
             let currentFilterForImeiDevice = this.currentCars.filter(x => {
               return x.d_IMEI == searchContent.textSearch;
             });
-            console.log(1)
+            console.log(1);
             this.cars = [];
             this.cars = currentFilterForImeiDevice;
-            break;         
+            break;
         }
       }
     });
@@ -106,14 +106,14 @@ export default {
     },
     getList() {
       this.cars = [];
-      var vm = this
+      var vm = this;
       getAllCar()
         .then(result => {
           this.cars = result.data;
           this.cars.forEach(function(value, index) {
             value.id = index + 1;
-          });          
-          vm.currentCars = this.cars      
+          });
+          vm.currentCars = this.cars;
         })
         .catch(err => {
           console.log(err);
@@ -121,11 +121,19 @@ export default {
     },
     onConfirm() {
       deleteCar(this.selectedRecord)
-        .then(() => {
-          this.$message({
-            message: "Xóa thành công",
-            type: "success"
-          });
+        .then(result => {
+          console.log(result);
+          if (result instanceof Error) {
+            this.$message({
+              message: "Bạn không có quyền sử dụng chức năng này!",
+              type: "error"
+            });
+          } else {
+            this.$message({
+              message: "Xóa thành công",
+              type: "success"
+            });
+          }
         })
         .then(() => {
           this.getList();
@@ -152,7 +160,7 @@ export default {
     }
   },
   mounted() {
-    this.getList()
+    this.getList();
   },
   computed: {
     showDialogProp: {
