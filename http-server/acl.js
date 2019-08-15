@@ -33,9 +33,7 @@ mongoose.connection.on('connected', function () {
             allows: [
                 {
                     resources: ['/car/getall','/car/delete','/car/insert','/car/update'],
-                    permissions: ['GET', 'POST'],
-                    resources: ['/driver/getall','/driver/delete','/driver/insert','/driver/update'],
-                    permissions: ['GET', 'POST'],
+                    permissions: ['GET', 'POST'],                    
                 },
             ],
         },

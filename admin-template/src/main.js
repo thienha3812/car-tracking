@@ -66,7 +66,7 @@ const router = new VueRouter({
 //
 
 router.beforeEach((to,from,next)=>{
-  if(to.path !== '/login' && !store.getters['user/isLoggedIn']){
+  if(to.path !== '/login' && !store.getters['user/isLoggedIn']){    
     next("/login")
   }
   if(to.path === '/login' && store.getters['user/isLoggedIn']){

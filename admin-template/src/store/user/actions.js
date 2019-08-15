@@ -9,5 +9,11 @@ export default {
                 resolve(new Error("Đăng nhập thất bại"))
             })
         })
+    },
+    logout({commit}){
+        return new Promise((resolve,reject)=>{
+            commit('logout')
+            resolve()
+        })
     }   
 }
