@@ -2,8 +2,7 @@ import axios from '../ultis/axios'
 
 
 export function getAllCar(){
-    return axios.get('/car/getall').then((result=>{       
-        console.log(result)
+    return axios.get('/car/getall').then((result=>{               
         return result
     })).catch(err=>{
         return err;

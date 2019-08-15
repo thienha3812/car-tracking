@@ -57,29 +57,67 @@ export default {
     showDialog: {
       type: Boolean,
       default: false
+    },
+    searchContent: {
+      type: Object
     }
   },
   data() {
     return {
       selected: [],
       cars: [],
+      currentCars : [],
       imei: "",
       plate: "",
       active: false,
       selectedRecord: {}
     };
   },
+  created() {
+    var vm  = this 
+    this.$bus.$on("searchUpdate", searchContent => {    
+      if(searchContent.textSearch == ''){
+        this.getList()
+      }
+      if (this.cars.length > 0) {
+        switch (searchContent.phanloai) {
+          case "plate_number":
+            let currentFilterForPlateNumber = this.currentCars.filter(x => {
+              return x.c_plate == searchContent.textSearch;
+            });
+            this.cars = [];
+            this.cars = currentFilterForPlateNumber;
+            break;
+          case "imei_device":            
+            let currentFilterForImeiDevice = this.currentCars.filter(x => {
+              return x.d_IMEI == searchContent.textSearch;
+            });
+            console.log(1)
+            this.cars = [];
+            this.cars = currentFilterForImeiDevice;
+            break;         
+        }
+      }
+    });
+  },
   methods: {
+    searchUpdate(value) {
+      console.log("123");
+    },
     getList() {
       this.cars = [];
-      getAllCar().then(result => {
-        this.cars = result.data;
-        this.cars.forEach(function(value, index) {
-          value.id = index + 1;
+      var vm = this
+      getAllCar()
+        .then(result => {
+          this.cars = result.data;
+          this.cars.forEach(function(value, index) {
+            value.id = index + 1;
+          });          
+          vm.currentCars = this.cars      
+        })
+        .catch(err => {
+          console.log(err);
         });
-      }).catch(err=>{
-        console.log(err)
-      })
     },
     onConfirm() {
       deleteCar(this.selectedRecord)
@@ -114,12 +152,7 @@ export default {
     }
   },
   mounted() {
-    getAllCar().then(result => {
-      this.cars = result.data;
-      this.cars.forEach(function(value, index) {
-        value.id = index + 1;
-      });
-    });
+    this.getList()
   },
   computed: {
     showDialogProp: {

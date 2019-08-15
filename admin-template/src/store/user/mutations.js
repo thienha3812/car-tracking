@@ -1,6 +1,7 @@
+
 export default {
-    loginSuccess(state,payload){        
-        localStorage.setItem("token",payload)
-        state.token = payload        
+    loginSuccess(state,token){          
+        localStorage.setItem("token",token)
+        state.token = token        
     }
 }

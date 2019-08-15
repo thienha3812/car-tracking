@@ -99,6 +99,9 @@ Vue.use(Notifications);
 if(store.getters['user/isLoggedIn']){  
   axios.defaults.headers.common['Authorization']  = store.state.user.token
 }
+
+// Event bus
+Vue.prototype.$bus = new Vue()
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

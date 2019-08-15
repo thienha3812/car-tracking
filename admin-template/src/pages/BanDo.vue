@@ -67,13 +67,53 @@
           </GmapMap>
         </div>
         <div class="md-layout-item">
-            <div class="md-layout" style="display:flex">
+            <div class="md-layout" style="background:#3399ff;color:white;border-radius:20px;margin-top:5%">
                 <div class="md-layout-item">
-                    <h1>+ Thông tin chi tiết của xe</h1>
-                    <small v-if="selectedIndex!=null">Vận tốc hiện tại: {{list[selectedIndex].speed}} km/h</small>
+                    <span style="height:30px;line-height:30px">Thông tin tài xế</span>
+                    <!-- <small v-if="selectedIndex!=null">Vận tốc hiện tại: {{list[selectedIndex].speed}} km/h</small> -->
+                </div>               
+            </div>
+            <div class="md-layout">
+               <div class='md-layout-item' style="padding:0">
+                  <div class="md-layout">
+                    <div class="md-layout-item" style="padding:0">
+                      <img src="../assets/img/driver-avatar.jpg" style="height:30px;width:30px"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="md-layout-item md-size-70">
+                  <div class="md-layout" style="display:flex">
+                      <div class="md-layout-item">
+                        Nguyễn Văn A
+                      </div>
+                      <div class="md-layout-item md-size-100">
+                        Ngày lái
+                      </div>
+                      <div class="md-layout-item md-size-100">
+                        Chức vụ
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="md-layout" style="background:#3399ff;color:white;border-radius:20px;margin-top:5%">
+                <div class="md-layout-item">
+                    <span style="height:30px;line-height:30px">Thông tin xe</span>                    
+                </div>               
+            </div>
+            <div class="md-layout">               
+                <div class="md-layout-item md-size-100">
+                  <div class="md-layout" style="display:flex">                      
+                      <div class="md-layout-item md-size-100" style="padding:0">
+                        <small v-if="selectedIndex!=null"><b>Biển số: </b>{{list[selectedIndex].car_information.c_plate}}</small>
+                      </div>
+                      <div class="md-layout-item md-size-100" style="padding:0">
+                        <small v-if="selectedIndex!=null"><b>Vận tốc hiện tại: </b>{{list[selectedIndex].speed}} km/h</small>
+                      </div>
+                  </div>
                 </div>
             </div>
         </div>
+        
       </div>
       <md-dialog-actions>
         <md-button class="md-primary" @click="showDetailDialog = false">Đóng</md-button>        
@@ -104,10 +144,6 @@ export default {
   },
   mounted() {
     var vm = this;
-    // navigator.geolocation.getCurrentPosition(function(position) {
-    //   vm.center.lat = position.coords.latitude;
-    //   vm.center.lng = position.coords.longitude;
-    // });
     vm.center.lat = 12
     vm.center.lng = 109
     this.location.lng = 10;
@@ -117,6 +153,7 @@ export default {
     });
     this.socket.on("data", function(dataReive) {
       var data = JSON.parse(dataReive);
+      console.log(data)
       data.location.lng = parseFloat(data.location.lng);
       data.location.lat = parseFloat(data.location.lat);
       vm.getPlace(data);

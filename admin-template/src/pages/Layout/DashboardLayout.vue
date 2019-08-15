@@ -12,9 +12,9 @@
         <md-icon>person</md-icon>
         <p>Danh sách tài xế</p>
       </sidebar-link>
-      <sidebar-link to="/danh-sach-thiet-bi">
-        <md-icon>content_paste</md-icon>
-        <p>Danh sách thiết bị</p> 
+      <sidebar-link to="/danh-sach-xe">
+        <md-icon>directions_car</md-icon>
+        <p>Danh sách xe</p> 
       </sidebar-link>
       <sidebar-link to="/lich-su">
         <md-icon>train</md-icon>

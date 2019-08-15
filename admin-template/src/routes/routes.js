@@ -2,7 +2,7 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
 import DanhSachTaiXe from "@/pages/DanhSachTaiXe.vue";
-import DanhSachThietBi from "@/pages/DanhSachThietBi.vue";
+import DanhSachThietBi from "@/pages/DanhSachXe.vue";
 import LichSu from "@/pages/LichSu.vue";
 import BanDo from "@/pages/BanDo.vue";
 
@@ -29,7 +29,7 @@ const routes = [
         component: DanhSachTaiXe
       },
       {
-        path: "danh-sach-thiet-bi",
+        path: "danh-sach-xe",
         name: "Danh sách thiết bị",
         component: DanhSachThietBi
       },
