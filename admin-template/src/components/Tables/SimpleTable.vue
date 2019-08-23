@@ -109,6 +109,7 @@ export default {
       var vm = this;
       getAllCar()
         .then(result => {
+          console.log(result)
           this.cars = result.data;
           this.cars.forEach(function(value, index) {
             value.id = index + 1;
