@@ -13,6 +13,14 @@ var DriverSchema = new Schema({
     dr_birthday:{
         type : String,
         default : ''
+    },
+    dr_rank : {
+        type : String,
+        default : ''
+    },
+    dr_card : {
+        type : String,
+        default : ''
     }
 }, {
     collection: "Driver",

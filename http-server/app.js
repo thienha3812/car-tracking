@@ -1,3 +1,5 @@
+
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -16,6 +18,7 @@ var driverRouter = require('./routes/drivers');
 var logRouter = require('./routes/log');
 var categoryRouter = require('./routes/category');
 var userRouter = require("./routes/user");
+var fileRouter = require("./routes/file");
 var app = express();
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
@@ -27,7 +30,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/image',express.static(path.join(__dirname, '/upload')))
 app.use(cors())
 
 //Config middleware 
@@ -39,6 +42,7 @@ app.use('/drivers', driverRouter);
 app.use('/log', logRouter)
 app.use('/category', categoryRouter)
 app.use('/user', userRouter)
+app.use('/file', fileRouter)
 // Disable e-tag
 app.disable('etag')
 // Config session

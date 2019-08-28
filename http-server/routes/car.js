@@ -31,19 +31,21 @@ router.post('/delete',function(req,res,next){
     }
   })
 })
-router.get('/update',function(req,res,next){
-    Car.findByIdAndUpdate({_id:req.body.id},{c_plate : req.body.plate,d_IMEI:req.body.imei},function(err,result){
+router.post('/update',function(req,res,next){
+  console.log(req.body)
+    Car.findByIdAndUpdate({_id:req.body._id},{c_plate : req.body.c_plate,d_IMEI:req.body.d_IMEI},function(err,result){
       if(err){
+        throw err;
         res.status(404).send(err)
       }else{
         res.status(200).send("Ok")
       }
     })
-})
+});
 router.get('/getall',function(req,res,next){
   Car.find({}).then((result)=>{
     res.send(result)
   })
-})
+});
 
 module.exports = router;

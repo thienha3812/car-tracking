@@ -23,3 +23,10 @@ export function deleteDriver(data){
         return err
     })
 }
+export function updateDriver(data){
+    return axios.post('/drivers/update',data).then((result)=>{
+        return result
+    }).catch(err=>{
+        return err;
+    });
+}

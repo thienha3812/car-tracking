@@ -12,8 +12,8 @@
       </div>
       <div class="md-layout-item md-size-20">
          <md-field>
-          <label for="phanloai">Phân loại</label>
-          <md-select v-model="searchContent.phanloai" >
+          <label for="category">Phân loại</label>
+          <md-select v-model="searchContent.category" >
             <md-option value="plate_number">Biển số xe</md-option>
             <md-option value="imei_device">Imei thiết bị</md-option>      
           </md-select>
@@ -52,7 +52,7 @@ export default {
     return {
       showDialog: false,
       active: true,      
-      searchContent : {textSearch : "",phanloai : ""}
+      searchContent : {textSearch : "",category : ""}
     };
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
       this.showDialog = value;
     },
     searchInputChange() {      
-      if(this.searchContent.phanloai === ""){
+      if(this.searchContent.category === ""){
         this.$message({type:"warning",message:"Bạn vui lòng chọn phân loại trước khi tìm kiếm!"})
         this.searchContent.textSearch = ''
       }else{        

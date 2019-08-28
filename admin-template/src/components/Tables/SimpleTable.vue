@@ -10,7 +10,7 @@
         <md-table-cell md-label="Biển số xe ">{{ item.c_plate }}</md-table-cell>
         <md-table-cell md-label="Imei thiết bị">{{ item.d_IMEI }}</md-table-cell>
         <md-table-cell md-label="Thao tác">
-          <md-button class="md-raised edit_btn">Sửa</md-button>
+          <md-button class="md-raised edit_btn" @click="editDialog=true;selectedRecord=item">Sửa</md-button>
           <md-button class="md-raised delete_btn" @click="active=true;selectedRecord=item">Xóa</md-button>
         </md-table-cell>
       </md-table-row>
@@ -34,6 +34,27 @@
         <md-button class="md-primary" @click="hideDiaLog()">Lưu</md-button>
       </md-dialog-actions>
     </md-dialog>
+      <md-dialog :md-active.sync="editDialog">
+      <md-dialog-title>Sửa thông tin xe</md-dialog-title>
+      <md-content>
+        <div>
+          <md-field>
+            <label>Imei thiết bị</label>
+            <md-input v-model="edit.d_IMEI" :placeholder="selectedRecord.d_IMEI"></md-input>
+          </md-field>
+        </div>
+        <div>
+          <md-field>
+            <label>Biển số xe</label>
+            <md-input v-model="edit.c_plate" :placeholder="selectedRecord.c_plate"></md-input>
+          </md-field>
+        </div>           
+      </md-content>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="editDialog=false">Hủy</md-button>
+        <md-button class="md-primary" @click="update();editDialog=false">Lưu</md-button>
+      </md-dialog-actions>
+    </md-dialog>
     <md-dialog-confirm
       :md-active.sync="active"
       md-title="Xóa?"
@@ -46,7 +67,7 @@
 </template>
 
 <script>
-import { getAllCar, insertCar, deleteCar } from "../../api/car";
+import { getAllCar, insertCar, deleteCar,updateCar } from "../../api/car";
 export default {
   name: "simple-table",
   props: {
@@ -65,6 +86,11 @@ export default {
   data() {
     return {
       selected: [],
+      editDialog : false,
+      edit : {
+        d_IMEI : "",
+        c_plate : "",
+      },
       cars: [],
       currentCars: [],
       imei: "",
@@ -101,6 +127,16 @@ export default {
     });
   },
   methods: {
+    update(){
+      updateCar({...this.edit,_id : this.selectedRecord._id}).then((result)=>{
+        this.$message({
+              message: "Sửa thành công",
+              type: "success"
+         })
+      }).then(()=>{
+           this.getList()
+         })
+    },
     searchUpdate(value) {
       console.log("123");
     },
