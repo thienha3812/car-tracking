@@ -14,7 +14,7 @@ router.post('/login', async function (req, res, next) {
             res.json({ token: encoded })
         })
     }else{
-        res.status(501).send("Vui lòng kiểm tra lại thông tin");
+        res.status(500).send("Vui lòng kiểm tra lại thông tin");
     }
 
 })

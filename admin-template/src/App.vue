@@ -6,9 +6,8 @@
 export default {};
 </script>
 <style lang="scss">
-* {
-  font-size: 18px !important;
-}
+@import url('https://fonts.googleapis.com/css?family=Roboto:500&display=swap');
+
 .vdp-datepicker__calendar {
   width: 600px !important;
 }

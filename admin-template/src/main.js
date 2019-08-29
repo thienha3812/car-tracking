@@ -51,10 +51,7 @@ import store from './store/store'
 
 const options = { name: 'lodash' } // customize the way you want to call it
 //
-Vue.use(ElementUI, { locale });
-//
-Vue.use(VueLodash, options) // options is optional
-//
+Vue.use(ElementUI)
 Vue.use(VueMaterial)
 // configure router
 const router = new VueRouter({
