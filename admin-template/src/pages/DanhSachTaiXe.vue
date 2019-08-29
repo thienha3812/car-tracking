@@ -223,7 +223,7 @@ export default {
         });
     },
     update() {
-      console.log(this.edit);
+      
       updateDriver({ ...this.edit, _id: this.selectedRow._id })
         .then(result => {
           if (result.status === 200) {

@@ -43,8 +43,9 @@ router.post('/update',function(req,res,next){
     })
 });
 router.get('/getall',function(req,res,next){
-  Car.find({}).then((result)=>{
-    res.send(result)
+  Car.find({}).populate("category").exec((err,cars)=>{
+    if (err) throw(errn)
+    res.send(cars)
   })
 });
 

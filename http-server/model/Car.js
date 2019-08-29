@@ -11,7 +11,7 @@ var CarSchema = new Schema({
         unique : true,
         default : ''
     },
-    category_id : {
+    category : {
         type : Schema.Types.ObjectId,
         ref : 'Category'
     }

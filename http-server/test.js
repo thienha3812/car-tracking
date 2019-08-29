@@ -19,11 +19,6 @@ describe('/user/login user', () => {
       .post('/user/login')
       .send(user)
       .end((err, res) => {        
-        console.log(res.body)
-        if(err) {
-          res.should.have.status(500);   
-        }
-        res.should.have.status(200);                
         done()
       })
   });

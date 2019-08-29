@@ -7,7 +7,7 @@ export default {};
 </script>
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Roboto:500&display=swap');
-
+@import "../src/assets/scss/main";
 .vdp-datepicker__calendar {
   width: 600px !important;
 }
