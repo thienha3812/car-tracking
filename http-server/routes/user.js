@@ -9,6 +9,7 @@ var jwt = require('jsonwebtoken');
 router.post('/login', async function (req, res, next) {    
     const user = await User.findOne({ username: req.body.username, password: req.body.password })    
     if (user) {
+        console.log(user)
         jwt.sign({ username: user.username, id: user._id }, "carTracking", { expiresIn: '1d' }, function (err, encoded) {
             if (err) throw err
             res.json({ token: encoded })

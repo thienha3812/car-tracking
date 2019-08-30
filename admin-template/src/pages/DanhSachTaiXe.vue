@@ -1,8 +1,12 @@
 <template>
   <div class="content">
     <div class="md-layout">
+      <md-card-header data-background-color="green">
+        <h4 class="title">Danh sách tài xế</h4>
+      </md-card-header>
       <div class="md-layout-item md-size-15">
-        <md-button class="md-success" @click="active=true">Thêm</md-button>
+        <!-- <md-button class="md-success" @click="active=true">Thêm</md-button> -->
+        <button type="button" class="btn btn-success" @click="active=true">Thêm</button>
       </div>
       <div class="md-layout-item md-size-30">
         <md-field>
@@ -23,10 +27,6 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
-          <md-card-header data-background-color="green">
-            <h4 class="title">Danh sách tài xế</h4>
-            <p class="category">Bảng hiện thị thông tin tài xế</p>
-          </md-card-header>
           <md-card-content>
             <md-table v-model="drivers">
               <md-table-row
@@ -35,22 +35,40 @@
                 md-auto-select
                 md-selectable="multiple"
               >
-                <md-table-cell md-label="Tên tài xế ">{{ item.dr_name }}</md-table-cell>
+                <md-table-cell md-label="Tên">{{ item.dr_name }}</md-table-cell>
+                <md-table-cell md-label="Tuổi"></md-table-cell>
+                <md-table-cell md-label="Giới tính"></md-table-cell>
+                <md-table-cell md-label="Năm sinh">{{ item.dr_card }}</md-table-cell>
                 <md-table-cell md-label="CMND">{{ item.dr_card }}</md-table-cell>
-                <!-- <md-table-cell md-label="Ảnh">
-                  <img style="width:30px;height:60px" class="driver_avatar" :src="item.dr_avatar" />
-                </md-table-cell>-->
-                <md-table-cell md-label="Ngày sinh">{{ item.dr_card }}</md-table-cell>
+                <md-table-cell md-label="SĐT"></md-table-cell>
                 <md-table-cell md-label="Cấp bậc ">{{ item.dr_rank }}</md-table-cell>
+                <md-table-cell md-label="Đơn vị"></md-table-cell>
                 <md-table-cell md-label="Thao tác">
-                  <md-button
-                    class="md-raised edit_btn"
+                  <button type="button" title="Xem" class="btn btn-info">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Sửa"
+                    class="btn btn-primary ml-1 mr-1"
                     @click="editDialog = true;selectedRow = item"
-                  >Sửa</md-button>
-                  <md-button
-                    class="md-raised delete_btn"
+                  >
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Xóa"
+                    class="btn btn-danger"
                     @click="activeDeleteDialog=true;selectedRow=item"
-                  >Xóa</md-button>
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                  <!-- <md-button class="md-raised edit_btn" @click="editDialog = true;selectedRow = item">
+                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </md-button>-->
+                  <!-- <md-button class="md-raised delete_btn" @click="activeDeleteDialog=true;selectedRow=item">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                  </md-button>-->
                 </md-table-cell>
               </md-table-row>
             </md-table>
@@ -62,32 +80,29 @@
       <md-dialog-title>Thêm thông tin xe</md-dialog-title>
       <md-content>
         <div>
-          <md-field>
-            <label>Tên tài xế</label>
-            <md-input v-model="input.dr_name"></md-input>
-          </md-field>
+          <input v-model="input.dr_name"  class="add_form" placeholder="Tên tài xế" />
         </div>
         <div>
-          <md-field>
-            <label>Ngày sinh</label>
-            <md-input v-model="input.dr_birthday"></md-input>
-          </md-field>
+          <Datepicker class="mt-2" style="width:100%" v-model="input.dr_birthday" :language="vi"  placeholder="Ngày sinh"></Datepicker>
         </div>
-        <!-- <md-field>
-          <label>Ảnh </label>
-          <md-file v-model="fileImage" ref="file"  @md-change="onfileChange($event)" />
-        </md-field>-->
-        <div>
-          <md-field>
-            <label>Cấp bậc</label>
-            <md-input v-model="input.dr_rank"></md-input>
-          </md-field>
+        <div class="mt-2">
+          <b-form-file placeholder="Ảnh đại diện" v-model="input.dr_avatar" drop-placeholder="Drop file here..."></b-form-file>
         </div>
-        <div>
-          <md-field>
-            <label>CMND</label>
-            <md-input v-model="input.dr_card"></md-input>
-          </md-field>
+        <div class="mt-2">
+          <input class="add_form" placeholder="CMND"/>
+        </div>
+
+        <div class="mt-2">
+          <input  class="add_form" placeholder="SĐT"/>
+        </div>
+        <div class="mt-2">
+          <input  class="add_form" placeholder="Đơn vị"/>
+        </div>
+        <div class="mt-2">
+          <b-form-select v-model="selected" :options="options"></b-form-select>
+        </div>
+        <div class="mt-2">
+          <b-form-select v-model="selected1" :options="options1"></b-form-select>
         </div>
       </md-content>
       <md-dialog-actions>
@@ -146,11 +161,28 @@ import {
   deleteDriver,
   updateDriver
 } from "../api/driver";
+import Datepicker from "vuejs-datepicker";
+import { vi, en } from "vuejs-datepicker/dist/locale";
+import * as $ from 'jquery';
 export default {
   name: "driverPage",
-  components: {},
+  components: {
+    Datepicker
+  },
   data() {
     return {
+      vi : vi,
+      selected1: null,
+      options1: [
+        { value: null, text: "Cấp bậc" },
+        
+      ],
+      selected: null,
+      options: [
+        { value: null, text: "Giới tính" },
+        { value: "Nam", text: "Nam" },        
+        { value: "Nữ", text: "Nữ" },        
+      ],
       searchContent: { textSearch: "", category: "" },
       drivers: [],
       fileImage: "",
@@ -164,7 +196,10 @@ export default {
         dr_rank: "",
         dr_name: "",
         dr_birthday: "",
-        dr_card: ""
+        dr_card: "",
+        dr_sex : "",
+        dr_avatar : "",
+        dr_unit : ""
       },
       active: false,
       name: "",
@@ -223,7 +258,6 @@ export default {
         });
     },
     update() {
-      
       updateDriver({ ...this.edit, _id: this.selectedRow._id })
         .then(result => {
           if (result.status === 200) {
@@ -254,6 +288,7 @@ export default {
     }
   },
   mounted() {
+    console.log($("input"))
     getAllDriver().then(result => {
       this.drivers = result.data;
     });
@@ -261,6 +296,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.add_form{
+  border:1px solid #ced4da;
+  border-radius:0.25rem;
+  width : 100%;
+  height:40px;
+  line-height: 40px;
+  padding : 0.375rem 1.75rem 0.375rem 0.75rem;
+}
 .driver_avatar {
   width: 100px !important;
 }
@@ -273,4 +316,14 @@ export default {
 .md-dialog {
   min-width: 50%;
 }
+</style>
+<style module lang="scss">
+    input {
+      border:1px solid #ced4da;
+      border-radius:0.25rem;
+      width : 100%;
+      height:40px;
+      line-height: 40px;
+      padding : 0.375rem 1.75rem 0.375rem 0.75rem;
+    }
 </style>

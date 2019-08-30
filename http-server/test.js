@@ -19,6 +19,7 @@ describe('/user/login user', () => {
       .post('/user/login')
       .send(user)
       .end((err, res) => {        
+        console.log(res.body)
         done()
       })
   });

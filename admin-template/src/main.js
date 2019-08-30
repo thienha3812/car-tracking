@@ -45,7 +45,7 @@ const options = { name: 'lodash' } // customize the way you want to call it
 //
 Vue.use(ElementUI)
 
-Vue.use(VueMaterial)
+
 // configure router
 const router = new VueRouter({
   mode: "history",

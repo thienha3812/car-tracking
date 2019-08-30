@@ -20,7 +20,7 @@ var AccountSchema = new Schema({
         required:true,
         trim : true
     },
-    fullName : {
+    full_name : {
         type : String,        
         required : true
     },
@@ -28,6 +28,11 @@ var AccountSchema = new Schema({
         type : Number,
         required : true,  
         default : 3      
+    },
+    url_avatar : {
+        type : String,        
+        required : true,
+        default : ""
     }
 },
 {

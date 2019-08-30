@@ -3,12 +3,17 @@ var Schema = mongoose.Schema
 
 
 var CategorySchema = new Schema({
-    name : {
+    type : {
         type : String,
         required : true,
         default : "",
     },
-    url_image : {
+    url_icon : {
+        type: String,
+        required : true,
+        default :""
+    },
+    url_icon : {
         type: String,
         required : true,
         default :""
