@@ -35,14 +35,12 @@
                 md-auto-select
                 md-selectable="multiple"
               >
-                <md-table-cell md-label="Tên">{{ item.dr_name }}</md-table-cell>
-                <md-table-cell md-label="Tuổi"></md-table-cell>
-                <md-table-cell md-label="Giới tính"></md-table-cell>
-                <md-table-cell md-label="Năm sinh">{{ item.dr_card }}</md-table-cell>
+                <md-table-cell md-label="Tên">{{ item.dr_name }}</md-table-cell>               
+                <md-table-cell md-label="Giới tính">{{item.dr_sex}}</md-table-cell>                
                 <md-table-cell md-label="CMND">{{ item.dr_card }}</md-table-cell>
-                <md-table-cell md-label="SĐT"></md-table-cell>
+                <md-table-cell md-label="SĐT">{{ item.dr_phone }}</md-table-cell>
                 <md-table-cell md-label="Cấp bậc ">{{ item.dr_rank }}</md-table-cell>
-                <md-table-cell md-label="Đơn vị"></md-table-cell>
+                <md-table-cell md-label="Đơn vị">{{ item.dr_unit }}</md-table-cell>
                 <md-table-cell md-label="Thao tác">
                   <button type="button" title="Xem" class="btn btn-info">
                     <i class="fa fa-eye" aria-hidden="true"></i>
@@ -88,26 +86,26 @@
         <div class="mt-2">
           <b-form-file placeholder="Ảnh đại diện" v-model="input.dr_avatar" drop-placeholder="Drop file here..."></b-form-file>
         </div>
-        <div class="mt-2">
-          <input class="add_form" placeholder="CMND"/>
+       <div class="mt-2">
+          <input v-model="input.dr_card" class="add_form" placeholder="CMND"/>
         </div>
 
         <div class="mt-2">
-          <input  class="add_form" placeholder="SĐT"/>
+          <input v-model="input.dr_phone" class="add_form" placeholder="SĐT"/>
         </div>
         <div class="mt-2">
-          <input  class="add_form" placeholder="Đơn vị"/>
+          <input v-model="input.dr_unit" class="add_form" placeholder="Đơn vị"/>
         </div>
         <div class="mt-2">
-          <b-form-select v-model="selected" :options="options"></b-form-select>
+          <b-form-select v-model="input.dr_sex" :options="optionsSex"></b-form-select>
         </div>
         <div class="mt-2">
-          <b-form-select v-model="selected1" :options="options1"></b-form-select>
+          <b-form-select v-model="input.dr_rank" :options="optionsLevel"></b-form-select>
         </div>
       </md-content>
       <md-dialog-actions>
         <md-button class="md-primary" @click="active=false">Hủy</md-button>
-        <md-button class="md-primary" @click="submit();active=false">Lưu</md-button>
+        <md-button class="md-primary" @click="add();active=false">Lưu</md-button>
       </md-dialog-actions>
     </md-dialog>
     <md-dialog :md-active.sync="editDialog">
@@ -133,7 +131,7 @@
         </div>
         <div>
           <md-field>
-            <label>CMNDc</label>
+            <label>CMND</label>
             <md-input v-model="edit.dr_card" :placeholder="selectedRow.dr_rank"></md-input>
           </md-field>
         </div>
@@ -172,13 +170,12 @@ export default {
   data() {
     return {
       vi : vi,
-      selected1: null,
-      options1: [
+      optionsLevel: [
         { value: null, text: "Cấp bậc" },
-        
+        { value : "Đại tá",text:"Đại tá" }
       ],
-      selected: null,
-      options: [
+
+      optionsSex: [
         { value: null, text: "Giới tính" },
         { value: "Nam", text: "Nam" },        
         { value: "Nữ", text: "Nữ" },        
@@ -194,12 +191,14 @@ export default {
       },
       input: {
         dr_rank: "",
+        dr_unit: "",
         dr_name: "",
         dr_birthday: "",
         dr_card: "",
-        dr_sex : "",
+        dr_sex : null,
         dr_avatar : "",
-        dr_unit : ""
+        dr_phone : "",
+        dr_rank : null        
       },
       active: false,
       name: "",
@@ -249,7 +248,7 @@ export default {
       deleteDriver(this.selectedRow)
         .then(result => {
           if (result.status === 200) {
-            this.$message({ type: "success", message: "Sửa thành công" });
+            this.$message({ type: "success", message: "Xoá thành công" });
           }
         })
         .then(() => {
@@ -275,21 +274,31 @@ export default {
         this.drivers = result.data;
       });
     },
-    submit() {
-      insertDriver(this.input)
-        .then(result => {
+    add() {
+      var fd = new FormData()      
+      fd.append("dr_avatar",this.input.dr_avatar)
+      fd.append("dr_name",this.input.dr_name)
+      fd.append("dr_card",this.input.dr_card)
+      fd.append("dr_birthday",this.input.dr_birthday)
+      fd.append("dr_sex",this.input.dr_sex)
+      fd.append("dr_phone",this.input.dr_phone)
+      fd.append("dr_unit",this.input.dr_unit) 
+      fd.append("dr_rank",this.input.dr_rank)
+      console.log(this.input.dr_birthday)
+      insertDriver(fd)        
+        .then(result => {          
           if (result.status === 200) {
             this.$message({ type: "success", message: "Thêm thành công" });
+            this.getList();
+          }else{
+            this.$message({ type: "error", message: "Vui lòng kiểm tra lại thông tin" });
           }
-        })
-        .then(() => {
-          this.getList();
-        });
+        })        
     }
   },
-  mounted() {
-    console.log($("input"))
+  mounted() {    
     getAllDriver().then(result => {
+      console.log(result.data)
       this.drivers = result.data;
     });
   }

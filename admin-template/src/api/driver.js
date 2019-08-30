@@ -9,10 +9,9 @@ export function getAllDriver(data){
     })
 }
 export async function insertDriver(data){
-    return axios.post('/drivers/insert',data).then((result)=>{
+    return axios.post('/drivers/insert',data,{headers:{"Content-type" : "multipart/form-data"}}).then((result)=>{
         return result
-    }).catch(err=>{
-        console.log(err)
+    }).catch(err=>{        
         return err
     })
 }

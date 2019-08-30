@@ -21,7 +21,19 @@ var DriverSchema = new Schema({
     dr_card : {
         type : String,
         default : ''
-    }
+    },
+    dr_sex : {
+        type : String,
+        default : ''
+    },
+    dr_unit : {
+        type : String,
+        default : ''
+    },
+    dr_phone : {
+        type : Number,
+        default : ''
+    },
 }, {
     collection: "Driver",
     versionKey : false

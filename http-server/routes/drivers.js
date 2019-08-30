@@ -11,20 +11,38 @@ router.get("/getall", function (req, res, next) {
   });
 });
 router.post("/insert", function (req, res, next) {
-  try {
-    var d = new Driver({
-      dr_card: req.body.dr_card,
-      dr_name: req.body.dr_name,
-      dr_birthday: req.body.dr_birthday,
-      dr_rank: req.body.dr_rank,
-    });
-    d.save(function (err) {
-      if (err) throw err;
-      res.status(200).send("Ok");
-    });
-  } catch (err) {
-    boom.boomify(err, { statusCode: 500 })
-  }
+  var fileName = uuid.v4();
+  var form = new formidable.IncomingForm();
+  var filePath = process.env.IP + "/image/" + fileName;
+  form.on("fileBegin", function (name, file) {
+    if (file.type == "image/png") {
+      file.path = "./upload/" + fileName + ".png";
+      filePath = filePath + ".png"
+    }
+    if (file.type == "image/jpg") {
+      file.path = "./upload/" + fileName + ".jpg";
+      filePath = filePath + ".jpg"
+    }
+  })
+  form.parse(req, async (err, fields, file) => {
+    console.log(fields)
+    if (fields["dr_name"]) {
+      var d = new Driver({
+        dr_name: fields["dr_name"],
+        dr_card: fields["dr_card"],
+        dr_sex: fields["dr_sex"],
+        dr_avatar: filePath,
+        dr_phone: fields["dr_phone"],
+        dr_rank : fields["dr_rank"],
+        dr_birthday : fields["dr_birthday"],
+        dr_unit : fields["dr_unit"]
+      })
+      await d.save()
+      res.sendStatus(200)
+    } else {
+      res.status(500).send({message:"Vui lòng nhập lại thông tin!"})
+    }
+  })
 });
 router.post("/delete", function (req, res, next) {
   Driver.findByIdAndRemove({ _id: req.body._id }, function (err, result) {
