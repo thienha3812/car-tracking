@@ -2,7 +2,7 @@
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">{{ $route.name }}</h3>
+        <h5>{{ $route.name }}</h5>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -16,20 +16,7 @@
         </md-button>
 
         <div class="md-collapse">
-          <div class="md-autocomplete">
-            <md-autocomplete
-              class="search"
-              v-model="selectedEmployee"
-              :md-options="employees"
-            >
-              <label>Tìm kiếm...</label>
-            </md-autocomplete>
-          </div>
-          <md-list>
-            <md-list-item href="/">
-              <i class="material-icons">dashboard</i>
-              <p class="hidden-lg hidden-md">Dashboard</p>
-            </md-list-item>         
+          <md-list>    
             <li class="md-list-item">
               <a
                 href="javascript:void(0)"
@@ -42,11 +29,12 @@
                       class="md-button md-just-icon md-simple"
                       data-toggle="dropdown"
                     >
-                      <md-icon>person</md-icon>                      
-                      <p class="hidden-lg hidden-md">Notifications</p>
+                      <i class="material-icons">apps</i>                   
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">                     
-                      <li><a href="javascript:void(0)" @click="logout">Đăng xuất</a></li>
+                      <li><a href="#">Thông tin tài khoản</a></li>
+                      <li><a href="#">Thiết lập tài khoản</a></li>
+                      <li><a href="javascript:void(0)" @click="logout" style="color:red !important">Đăng xuất</a></li>
                     </ul>
                   </drop-down>
                 </div>

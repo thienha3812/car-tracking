@@ -11,16 +11,22 @@
   "dependencies": {
     "@pencilpix/vue2-clock-picker": "^0.1.6",
     "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.28",
     "buefy": "^0.8.0",
+    "chai": "^4.2.0",
     "chartist": "0.11.2",
     "element-ui": "^2.10.1",
+    "fs": "0.0.1-security",
     "google-maps": "3.3.0",
     "jquery": "^3.4.1",
+    "less-loader": "^5.0.0",
+    "mocha": "^6.2.0",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
     "postcss-import": "^12.0.1",
     "socket.io-client": "^2.2.0",
-    "vue": "2.6.10",
+    "vue": "^2.6.10",
     "vue-clickaway": "2.2.2",
     "vue-github-buttons": "3.1.0",
     "vue-lodash": "^2.0.2",
@@ -42,6 +48,7 @@
     "eslint-plugin-vue": "5.2.2",
     "node-sass": "4.12.0",
     "sass-loader": "7.1.0",
-    "vue-template-compiler": "2.6.10"
+    "vue-loader": "^15.7.1",
+    "vue-template-compiler": "^2.6.10"
   }
 }

@@ -9,14 +9,14 @@ var jwt = require('jsonwebtoken');
 router.post('/login', async function (req, res, next) {    
     const user = await User.findOne({ username: req.body.username, password: req.body.password })    
     if (user) {
-        jwt.sign({ username: user.username, id: user._id }, "carTracking", { expiresIn: 60 * 60 }, function (err, encoded) {
+        console.log(user)
+        jwt.sign({ username: user.username, id: user._id }, "carTracking", { expiresIn: '1d' }, function (err, encoded) {
             if (err) throw err
-            res.json({ token: encoded })
+            res.json({ token: encoded, info:{username : "123",url_avatar:"123"} })
         })
     }else{
-        res.status(501).send("Vui lòng kiểm tra lại thông tin");
+        res.status(500).send("Vui lòng kiểm tra lại thông tin");
     }
-
 })
 router.post('/register', function (req, res, next) {
     const user = {

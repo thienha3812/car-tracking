@@ -1,75 +1,105 @@
-<template>
-  <div class="loginPage">
-    <div class="md-layout md-alignment-center-center">
-      <div class="md-layout-item md-size-35">
-        <md-card>
-          <div class="md-layout" style="flex-direction:column">
-            <div class="md-layout-item">
-              <md-field>
-                <label  class="title"><b>TÀI KHOẢN</b></label>
-                <md-input v-model="user.username" type="text"></md-input>
-              </md-field>
+﻿<template>
+  <div class="app flex-row align-items-center">
+    <div class="container">
+        <div class="justify-content-center row">
+            <div class="col-md-4">
+                <div class="card-group">
+                    <div class="p-2 card">
+                        <div class="card-body">
+                            <div class="">
+                                <h1>Đăng nhập</h1>
+                                <p class="text-muted">Đăng nhập bằng tài khoản được cung cấp</p>
+                                <div class="mb-3 input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                      </span>
+                                    </div>
+                                    <input placeholder="Tài khoản" @keypress.enter="login" v-model="user.username" autocomplete="username" type="text" class="form-control">
+                                </div>
+                                <div class="mb-4 input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                      </span>
+                                    </div>
+                                    <input placeholder="Mật khẩu"  @keypress.enter="login" v-model="user.password" autocomplete="current-password" type="password" class="form-control">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button @click="login" class="p-2 btn btn-primary">Đăng nhập</button>
+                                    </div>
+                                    <div class="text-right col-6">
+                                        <button class="px-0 btn btn-link">Quên mật khẩu?</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="md-layout-item">
-              <md-field>
-                <label class="title"><b>MẬT KHẨU</b></label>
-                <md-input v-model="user.password" type="password"></md-input>
-              </md-field>
-            </div>
-            <div class="md-layout-item" style="display:flex;justify-content:center">
-                <md-card-actions>
-                    <md-button @click="login" class="login_btn">ĐĂNG NHẬP</md-button>            
-                </md-card-actions>
-            </div>
-          </div>
-        </md-card>
-      </div>
+        </div>
     </div>
-  </div>
+</div>
 </template>
 <script>
 export default {
-    name : "",
-    data(){
-        return  {
-          user:{
-            username : "",
-            password : ""
-          }
+  name: "",
+  data() {
+    return {
+      user: {
+        username: "",
+        password: ""
+      }
+    };
+  },
+  mounted() {},
+  methods: {
+    login() {
+      this.$store.dispatch("user/login", this.user).then(result => {
+        if (result instanceof Error) {
+          this.$message({ type: "error", message: "Đăng nhập thất bại!" });
+        } else {
+          this.$message({ type: "success", message: "Đăng nhập thành công!" });
+          setTimeout(() => {
+            this.$router.push("/dashboard");
+          }, 500);
         }
-    },
-    mounted() {
-        
-    },
-    methods :{
-        login(){
-            this.$store.dispatch("user/login",this.user).then((result)=>{
-              if(result instanceof Error){
-                this.$message({type:"error",message:"Đăng nhập thất bại!"})                
-              }else{
-                this.$message({type:"success",message:"Đăng nhập thành công!"})
-                setTimeout(()=>{
-                  this.$router.push("/dashboard")
-                },2000)
-              }
-            })
-        }
+      });
     }
-}
+  }
+};
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Ubuntu&display=swap");
 body {
   background: white !important;
 }
-
 </style>
-<style lang="scss" scoped>
-
-.title{
-    font-family: 'Ubuntu', sans-serif !important;
+<style>
+.app.flex-row.align-items-center {
+  height: 100vh;
+  display: flex;
+  min-height: 100vh;
+  align-items: center!important;
+  flex-direction: row!important;
+  background-color: #e4e5e6;
 }
-.login_btn{
-    background: #065535 !important;
+.app.flex-row.align-items-center h1{
+    font-size: 28px;
+}
+.app.flex-row.align-items-center input{
+  background-image: none
+}
+.app.flex-row.align-items-center .text-right.col-6 button{
+  text-decoration: none;
+}
+.app.flex-row.align-items-center .text-right.col-6 button:hover{
+  text-decoration: none;
+  color: #333
+}
+.justify-content-center.row{
+    width: 100%;
+    max-width: 100%;
 }
 </style>

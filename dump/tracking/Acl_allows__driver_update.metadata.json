@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_allows__driver_update"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_allows__driver_update"}],"uuid":"ff200f0d1e6d417ebd67a92f1b418485"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_allows__driver_update"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_allows__driver_update"}],"uuid":"c2c9c764cee84af58b5966647b4079f0"}

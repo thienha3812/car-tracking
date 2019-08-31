@@ -9,10 +9,9 @@ export function getAllDriver(data){
     })
 }
 export async function insertDriver(data){
-    return axios.post('/drivers/insert',data).then((result)=>{
+    return axios.post('/drivers/insert',data,{headers:{"Content-type" : "multipart/form-data"}}).then((result)=>{
         return result
-    }).catch(err=>{
-        console.log(err)
+    }).catch(err=>{        
         return err
     })
 }
@@ -22,4 +21,11 @@ export function deleteDriver(data){
     }).catch(err=>{
         return err
     })
+}
+export function updateDriver(data){
+    return axios.post('/drivers/update',data).then((result)=>{
+        return result
+    }).catch(err=>{
+        return err;
+    });
 }

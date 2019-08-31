@@ -1,22 +1,25 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-var CarSchema = new Schema({
+var CarSchema = new Schema(
+  {
     c_plate: {
-        type: String,
-        unique : true
+      type: String,
+      unique: true,
+      required : true
     },
     d_IMEI: {
-        type: String,
-        unique : true,
-        default : ''
+      type: String,
+      unique: true,
+      required : true
     },
-    category_id : {
-        type : Schema.Types.ObjectId,
-        ref : 'Category'
-    }
-}, {
+    category: [
+      { type: Schema.Types.ObjectId, ref: "Category" }
+    ]
+  },
+  {
     collection: "Car",
-    versionKey : false
-})
-module.exports = mongoose.model('Car', CarSchema);
+    versionKey: false
+  }
+);
+module.exports = mongoose.model("Car", CarSchema);

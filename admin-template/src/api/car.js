@@ -26,3 +26,13 @@ export function deleteCar(data){
         })
     })
 }
+export function updateCar(data){
+    console.log(data)
+    return new Promise((resolve,reject)=>{
+        axios.post('/car/update',data).then((result)=>{
+            resolve(result)
+        }).catch(err=>{
+            resolve(err)
+        })
+    })
+}

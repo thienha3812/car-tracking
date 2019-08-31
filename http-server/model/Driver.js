@@ -13,7 +13,27 @@ var DriverSchema = new Schema({
     dr_birthday:{
         type : String,
         default : ''
-    }
+    },
+    dr_rank : {
+        type : String,
+        default : ''
+    },
+    dr_card : {
+        type : String,
+        default : ''
+    },
+    dr_sex : {
+        type : String,
+        default : ''
+    },
+    dr_unit : {
+        type : String,
+        default : ''
+    },
+    dr_phone : {
+        type : Number,
+        default : ''
+    },
 }, {
     collection: "Driver",
     versionKey : false

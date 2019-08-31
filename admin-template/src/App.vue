@@ -1,14 +1,20 @@
 <template>
-  <router-view></router-view>
+  <div class="App">
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {};
 </script>
+<style>
+@import "../src/layout/navbar.css";
+</style>
 <style lang="scss">
-* {
-  font-size: 18px !important;
-}
+@import url("https://fonts.googleapis.com/css?family=Roboto:500&display=swap");
+@import "../src/assets/scss/main";
 .vdp-datepicker__calendar {
   width: 600px !important;
 }
@@ -18,5 +24,6 @@ export default {};
 .el-date-editor {
   width: 100% !important;
 }
+
 </style>
 
