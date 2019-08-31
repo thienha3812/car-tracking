@@ -138,3 +138,65 @@ footer.footer p{
 footer.footer a{
   color: #20a8d8 !important
 }
+span.md-dialog-title.md-title{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+.md-dialog-actions{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-top: 1px solid #dee2e6;
+  border-bottom-right-radius: .3rem;
+  border-bottom-left-radius: .3rem;
+}
+.md-content.md-theme-default{
+  position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+    padding-bottom: 0px;
+}
+span.md-dialog-title.md-title{
+  width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin-bottom: 0px;
+}
+.md-content.md-theme-default input{
+  padding: 10px;
+    height: 45px;
+  margin-bottom: 15px;
+}
+.md-content.md-theme-default .custom-file.b-form-file, .md-content.md-theme-default select{
+  margin-bottom: 15px;
+}
+.md-content.md-theme-default input:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+.modal-dialog.modal-md input, .modal-dialog.modal-md select{
+  margin-bottom: 15px;
+}
+.modal-dialog.modal-md .custom-file.b-form-file{
+  margin-bottom: 15px;
+}
+.md-card .md-card-content{
+  padding: 0px !important;
+}
+.md-content.md-table.md-theme-default{
+  padding: 0px !important;
+}
+.md-content.md-table-content.md-scrollbar.md-theme-default{
+  padding: 15px !important;
+}

@@ -15,7 +15,7 @@
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                       </span>
                                     </div>
-                                    <input placeholder="Tài khoản" v-model="user.username" autocomplete="username" type="text" class="form-control">
+                                    <input placeholder="Tài khoản" @keypress.enter="login" v-model="user.username" autocomplete="username" type="text" class="form-control">
                                 </div>
                                 <div class="mb-4 input-group">
                                     <div class="input-group-prepend">
@@ -23,7 +23,7 @@
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                       </span>
                                     </div>
-                                    <input placeholder="Mật khẩu"  v-model="user.password" autocomplete="current-password" type="password" class="form-control">
+                                    <input placeholder="Mật khẩu"  @keypress.enter="login" v-model="user.password" autocomplete="current-password" type="password" class="form-control">
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -63,7 +63,7 @@ export default {
           this.$message({ type: "success", message: "Đăng nhập thành công!" });
           setTimeout(() => {
             this.$router.push("/dashboard");
-          }, 2000);
+          }, 500);
         }
       });
     }

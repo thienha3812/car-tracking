@@ -12,12 +12,11 @@ router.post('/login', async function (req, res, next) {
         console.log(user)
         jwt.sign({ username: user.username, id: user._id }, "carTracking", { expiresIn: '1d' }, function (err, encoded) {
             if (err) throw err
-            res.json({ token: encoded })
+            res.json({ token: encoded, info:{username : "123",url_avatar:"123"} })
         })
     }else{
         res.status(500).send("Vui lòng kiểm tra lại thông tin");
     }
-
 })
 router.post('/register', function (req, res, next) {
     const user = {

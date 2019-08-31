@@ -1,19 +1,20 @@
 <template>
   <div class="content">
-    <div class="md-layout">
-      <div class="md-layout-item">
-        <Datepicker
-          :language="vi"
-          :selected="onSelected"
-          v-model="selectedDate"
-          calendar-button
-          calendar-button-icon="fa fa-calendar"
-        ></Datepicker>
-        <md-card>
-          <md-card-header data-background-color="green">
-            <h4 class="title">Lịch sử hành trình</h4>
-            <p class="category">Thông tin chi tiết lịch sử hành trình của xe</p>
-          </md-card-header>
+    <div class="md-layout d-flex flex-column">
+      <div class="md-layout-item ">
+        <div class="md-layout ">          
+          <div class="md-layout-item md-size-30" style="padding:0">            
+            <Datepicker
+              :language="vi"
+              :selected="onSelected"
+              v-model="selectedDate"
+              placeholder="Chọn mốc thời gian"          
+            ></Datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="md-layout-item ">        
+        <md-card>          
           <md-card-content>
             <md-table v-model="cars">
               <md-table-row

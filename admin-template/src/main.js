@@ -43,7 +43,9 @@ import { Script } from "vm";
 
 const options = { name: 'lodash' } // customize the way you want to call it
 //
-Vue.use(ElementUI)
+Vue.use(ElementUI,{
+  locale
+})
 
 
 // configure router

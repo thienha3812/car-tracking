@@ -5,14 +5,17 @@ var CarSchema = new Schema(
   {
     c_plate: {
       type: String,
-      unique: true
+      unique: true,
+      required : true
     },
     d_IMEI: {
       type: String,
       unique: true,
-      default: ""
+      required : true
     },
-    category: [{ type: Schema.Types.ObjectId, ref: "Category" }]
+    category: [
+      { type: Schema.Types.ObjectId, ref: "Category" }
+    ]
   },
   {
     collection: "Car",

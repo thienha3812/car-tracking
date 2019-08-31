@@ -9,50 +9,65 @@
       >
         <md-table-cell md-label="Biển số xe ">{{ item.c_plate }}</md-table-cell>
         <md-table-cell md-label="Imei thiết bị">{{ item.d_IMEI }}</md-table-cell>
+        <md-table-cell md-label="Loại xe">
+          <div v-for="i in item.category">
+               <span>{{i.type}}</span>
+          </div>
+        </md-table-cell>
         <md-table-cell md-label="Thao tác">
-          <md-button class="md-raised edit_btn" @click="editDialog=true;selectedRecord=item">Sửa</md-button>
-          <md-button class="md-raised delete_btn" @click="active=true;selectedRecord=item">Xóa</md-button>
+           <button
+                    type="button"
+                    title="Sửa"
+                    class="btn btn-primary ml-1 mr-1"
+                    @click="editDialog=true;selectedRecord=item"
+                  >
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Xóa"
+                    class="btn btn-danger"
+                    @click="active=true;selectedRecord=item"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>          
         </md-table-cell>
       </md-table-row>
     </md-table>
     <md-dialog :md-active.sync="showDialogProp">
       <md-dialog-title>Thêm thông tin xe</md-dialog-title>
-      <md-content>
+      <md-content>        
         <div>
-          <md-field>
-            <label>Biển số</label>
-            <md-input v-model="plate"></md-input>
-          </md-field>
-          <md-field>
-            <label>IMEI Thiết bị</label>
-            <md-input v-model="imei"></md-input>
-          </md-field>
+          <input v-model="input.c_plate" class="add_form" placeholder="Biển số xe"/>
+        </div>        
+        <div>
+          <input v-model="input.c_IMEI" class="add_form" placeholder="IMEI thiết bị"/>
+        </div>        
+        <div>
+          <b-form-select v-model="input.category" :options="optionsCategory"></b-form-select>
         </div>
       </md-content>
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="$emit('hideDialog', false)">Hủy</md-button>
-        <md-button class="md-primary" @click="hideDiaLog()">Lưu</md-button>
+      <md-dialog-actions>      
+        <b-button variant="danger" class="mr-2" @click="$emit('hideDialog', false)"><i class="fa fa-times " aria-hidden="true"></i> Hủy</b-button>
+        <b-button variant="success" @click="hideDiaLog()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</b-button>
       </md-dialog-actions>
     </md-dialog>
       <md-dialog :md-active.sync="editDialog">
       <md-dialog-title>Sửa thông tin xe</md-dialog-title>
       <md-content>
         <div>
-          <md-field>
-            <label>Imei thiết bị</label>
-            <md-input v-model="edit.d_IMEI" :placeholder="selectedRecord.d_IMEI"></md-input>
-          </md-field>
+          <input  class="add_form" v-model="edit.d_IMEI" :placeholder="selectedRecord.d_IMEI"/>
         </div>
         <div>
-          <md-field>
-            <label>Biển số xe</label>
-            <md-input v-model="edit.c_plate" :placeholder="selectedRecord.c_plate"></md-input>
-          </md-field>
-        </div>           
+          <input  class="add_form"  v-model="edit.c_plate"   :placeholder="selectedRecord.c_plate" />
+        </div>     
+        <div>
+          <b-form-select v-model="edit.category" :options="optionsCategory"></b-form-select>
+        </div>
       </md-content>
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="editDialog=false">Hủy</md-button>
-        <md-button class="md-primary" @click="update();editDialog=false">Lưu</md-button>
+      <md-dialog-actions>        
+        <b-button variant="danger" class="mr-2" @click="editDialog=false"><i class="fa fa-times " aria-hidden="true"></i> Hủy</b-button>
+        <b-button variant="success" @click="update();editDialog=false"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</b-button>
       </md-dialog-actions>
     </md-dialog>
     <md-dialog-confirm
@@ -68,6 +83,7 @@
 
 <script>
 import { getAllCar, insertCar, deleteCar,updateCar } from "../../api/car";
+import { getAllCategory}  from "../../api/category"
 export default {
   name: "simple-table",
   props: {
@@ -90,11 +106,19 @@ export default {
       edit : {
         d_IMEI : "",
         c_plate : "",
+        category : null
       },
+      optionsCategory : [
+        {value : "null",text : "Chọn loại xe"}
+
+      ],
       cars: [],
       currentCars: [],
-      imei: "",
-      plate: "",
+      input :{
+        c_plate: "",
+        c_IMEI: "",
+        category : null
+      },
       active: false,
       selectedRecord: {}
     };
@@ -102,23 +126,23 @@ export default {
   created() {
     var vm = this;
     this.$bus.$on("searchUpdate", searchContent => {
+      console.log(searchContent)
       if (searchContent.textSearch == "") {
         this.getList();
       }
       if (this.cars.length > 0) {
-        switch (searchContent.phanloai) {
-          case "plate_number":
-            let currentFilterForPlateNumber = this.currentCars.filter(x => {
+        switch (searchContent.category) {
+          case "plate_number":            
+            let currentFilterForPlateNumber = this.currentCars.filter(x => {              
               return x.c_plate == searchContent.textSearch;
             });
             this.cars = [];
-            this.cars = currentFilterForPlateNumber;
+            this.cars = currentFilterForPlateNumber;            
             break;
           case "imei_device":
             let currentFilterForImeiDevice = this.currentCars.filter(x => {
               return x.d_IMEI == searchContent.textSearch;
-            });
-            console.log(1);
+            });            
             this.cars = [];
             this.cars = currentFilterForImeiDevice;
             break;
@@ -129,13 +153,19 @@ export default {
   methods: {
     update(){
       updateCar({...this.edit,_id : this.selectedRecord._id}).then((result)=>{
-        this.$message({
-              message: "Sửa thành công",
+        if (result instanceof Error){
+          this.$message({
+              message: "Xảy ra lỗi!",
+              type: "error"
+         })
+        }else{
+          this.$message({
+              message: "Sửa thành công!",
               type: "success"
          })
-      }).then(()=>{
-           this.getList()
-         })
+         this.getList()
+        }
+      })
     },
     searchUpdate(value) {
       console.log("123");
@@ -144,22 +174,19 @@ export default {
       this.cars = [];
       var vm = this;
       getAllCar()
-        .then(result => {
-          console.log(result)
+        .then(result => {          
           this.cars = result.data;
           this.cars.forEach(function(value, index) {
             value.id = index + 1;
           });
           vm.currentCars = this.cars;
         })
-        .catch(err => {
-          console.log(err);
+        .catch(err => {          
         });
     },
     onConfirm() {
       deleteCar(this.selectedRecord)
-        .then(result => {
-          console.log(result);
+        .then(result => {          
           if (result instanceof Error) {
             this.$message({
               message: "Bạn không có quyền sử dụng chức năng này!",
@@ -177,7 +204,7 @@ export default {
         });
     },
     hideDiaLog() {
-      insertCar({ imei: this.imei, plate: this.plate }).then(result => {
+      insertCar(this.input).then(result => {
         if (result.status === 200) {
           this.$message({
             message: "Thêm thành công",
@@ -186,7 +213,7 @@ export default {
           this.getList();
         } else {
           this.$message({
-            message: "Xảy ra lỗi",
+            message: "Thông tin nhập vào đã tồn tại !",
             type: "error"
           });
         }
@@ -196,7 +223,12 @@ export default {
       });
     }
   },
-  mounted() {
+  mounted() {    
+    getAllCategory().then((result)=>{      
+      result.data.forEach(x=>{
+        this.optionsCategory.push({value : x._id , text : x.type})
+      })          
+    })
     this.getList();
   },
   computed: {

@@ -24,8 +24,7 @@ router.post("/insert", function (req, res, next) {
       filePath = filePath + ".jpg"
     }
   })
-  form.parse(req, async (err, fields, file) => {
-    console.log(fields)
+  form.parse(req, async (err, fields, file) => {    
     if (fields["dr_name"]) {
       var d = new Driver({
         dr_name: fields["dr_name"],
@@ -54,13 +53,18 @@ router.post("/delete", function (req, res, next) {
   });
 });
 router.post("/update", function (req, res, next) {
+  console.log(req.body)
   Driver.findOneAndUpdate(
     { _id: req.body._id },
     {
       dr_card: req.body.dr_card,
       dr_name: req.body.dr_name,
       dr_rank: req.body.dr_rank,
-      dr_birthday: req.body.dr_birthday
+      dr_birthday: req.body.dr_birthday,
+      dr_card : req.body.dr_card,
+      dr_phone : req.body.dr_phone,
+      dr_sex : req.body.dr_sex,
+      dr_unit : req.body.dr_unit
     },
     function (err, result) {
       if (err) {

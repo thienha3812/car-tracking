@@ -6,10 +6,11 @@ router.get('/', function(req, res, next) {
   res.status(404)
 });
 router.post('/insert',function(req,res,next){
+    console.log(req.body)
     var c = new Car()
-    c.c_plate = req.body.plate
-    c.d_IMEI = req.body.imei
-    c.category_id = req.body.category_id 
+    c.c_plate = req.body.c_plate
+    c.d_IMEI = req.body.c_IMEI
+    c.category = req.body.category
     c.save(function(err){
       if(err){
         if(err.code === 11000){
@@ -33,10 +34,9 @@ router.post('/delete',function(req,res,next){
 })
 router.post('/update',function(req,res,next){
   console.log(req.body)
-    Car.findByIdAndUpdate({_id:req.body._id},{c_plate : req.body.c_plate,d_IMEI:req.body.d_IMEI},function(err,result){
-      if(err){
-        throw err;
-        res.status(404).send(err)
+    Car.findByIdAndUpdate({_id:req.body._id},{category : req.body.category,c_plate : req.body.c_plate,d_IMEI:req.body.d_IMEI},function(err,result){
+      if(err){        
+        res.status(500).send(err)
       }else{
         res.status(200).send("Ok")
       }
