@@ -217,6 +217,7 @@ export default {
     searchInputChange() {
       if (this.searchContent.textSearch == "") {
         this.getList();
+        return 
       }
       if (this.searchContent.category === "") {
         this.$message({
