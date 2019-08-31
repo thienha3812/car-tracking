@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_allows__driver_insert"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_allows__driver_insert"}],"uuid":"6509fc7718fb4626b17b2c1351fbe053"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_allows__driver_insert"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_allows__driver_insert"}],"uuid":"0ea4688b650e4ad7a4ac22f8fedf9dd5"}

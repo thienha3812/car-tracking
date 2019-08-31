@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.DeviceNeedCheck"},{"v":2,"key":{"IMEI":1},"name":"IMEI_1","background":true,"ns":"tracking.DeviceNeedCheck"}],"uuid":"0ac5aafe12684b73ab39c12e1a509342"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.DeviceNeedCheck"},{"v":2,"key":{"IMEI":1},"name":"IMEI_1","ns":"tracking.DeviceNeedCheck","background":true}],"uuid":"1e6d8209b8034d9cb260fe4001cf1e7c"}

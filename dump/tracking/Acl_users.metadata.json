@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_users"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_users"}],"uuid":"6507eea710c8437f8bb88984d35c7fc4"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_users"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_users"}],"uuid":"3e7cb2602c694a419f5825595aa89494"}
