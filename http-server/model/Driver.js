@@ -38,4 +38,12 @@ var DriverSchema = new Schema({
     collection: "Driver",
     versionKey : false
 })
+DriverSchema.pre("save",function(next){
+    console.log("save")
+    next()
+})
+DriverSchema.pre("update",function(next){
+    console.log("save")
+    next()
+})
 module.exports = mongoose.model('Driver', DriverSchema);

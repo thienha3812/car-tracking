@@ -33,8 +33,21 @@ router.post('/delete',function(req,res,next){
   })
 })
 router.post('/update',function(req,res,next){
-  console.log(req.body)
-    Car.findByIdAndUpdate({_id:req.body._id},{category : req.body.category,c_plate : req.body.c_plate,d_IMEI:req.body.d_IMEI},function(err,result){
+    var update = {
+      category : req.body.category,
+      c_plate : req.body.c_plate,
+      d_IMEI:req.body.d_IMEI
+    }
+    for(key of Object.keys(update)){
+      if(update[key] == ""){
+        delete update[key]
+      }
+    }   
+    Car.findByIdAndUpdate({_id:req.body._id},{
+      $set : {
+        ...update
+      }
+    },function(err,result){
       if(err){        
         res.status(500).send(err)
       }else{

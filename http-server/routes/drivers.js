@@ -4,13 +4,13 @@ var Driver = require("../model/Driver");
 var formidable = require("formidable");
 var uuid = require("uuid");
 var boom = require("boom");
-router.get("/getall", function (req, res, next) {
-  Driver.find({}, function (err, result) {
+router.get("/getall", function(req, res, next) {
+  Driver.find({}, function(err, result) {
     if (err) throw err;
     res.json(result);
   });
 });
-router.post("/insert", function (req, res, next) {
+router.post("/insert", function(req, res, next) {
   var fileName = uuid.v4();
   var form = new formidable.IncomingForm();
   var filePath = process.env.IP + "/image/" + fileName;
@@ -35,23 +35,23 @@ router.post("/insert", function (req, res, next) {
       });
       await d.save();
     } else {
-      res.status(500).send({ message: "Vui lòng nhập lại thông tin!" })
+      res.status(500).send({message:"Vui lòng nhập lại thông tin!"})
     }
   });
-  form.on("fileBegin", async function (name, file) {
+  form.on("fileBegin", async   function (name, file)  {
     if (file.type == "image/png") {
-      file.path = "./upload/" + fileName + ".png";
+      file.path = "./upload/" + fileName + ".png";            
     }
     if (file.type == "image/jpg") {
       file.path = "./upload/" + fileName + ".jpg";
     }
   })
-  form.on("end", () => {
+  form.on("end",()=>{
     res.sendStatus(200)
   })
 });
-router.post("/delete", function (req, res, next) {
-  Driver.findByIdAndRemove({ _id: req.body._id }, function (err, result) {
+router.post("/delete", function(req, res, next) {
+  Driver.findByIdAndRemove({ _id: req.body._id }, function(err, result) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -59,20 +59,33 @@ router.post("/delete", function (req, res, next) {
     }
   });
 });
-router.post("/update", function (req, res, next) {
+router.post("/update", function(req, res, next) {
+  var update  = {
+        dr_card: req.body.dr_card,
+        dr_name: req.body.dr_name ,
+        dr_rank: req.body.dr_rank,
+        dr_birthday: req.body.dr_birthday,
+        dr_card: req.body.dr_card,
+        dr_phone: req.body.dr_phone,
+        dr_sex: req.body.dr_sex,
+        dr_unit: req.body.dr_unit
+  }
+  for(key of Object.keys(update)){
+      if(update[key] == ""){
+        delete update[key]
+      }
+  }  
   Driver.findOneAndUpdate(
     { _id: req.body._id },
     {
-      dr_card: req.body.dr_card,
-      dr_name: req.body.dr_name,
-      dr_rank: req.body.dr_rank,
-      dr_birthday: req.body.dr_birthday,
-      dr_card: req.body.dr_card,
-      dr_phone: req.body.dr_phone,
-      dr_sex: req.body.dr_sex,
-      dr_unit: req.body.dr_unit
+      $set : {
+        ...update
+      }
     },
-    function (err, result) {
+    {
+       
+    }, 
+    function(err, result) {
       if (err) {
         res.status(404).send(err);
       } else {

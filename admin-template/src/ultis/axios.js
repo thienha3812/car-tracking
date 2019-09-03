@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-
+// baseURL : "http://117.2.128.107:5024",
 var request = axios.create({
     baseURL : "http://192.168.1.24:5024",
     timeout : 10000

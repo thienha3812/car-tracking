@@ -15,14 +15,14 @@
         <md-icon>add</md-icon>
       </md-speed-dial-target>
 
-      <md-speed-dial-content>
+      <md-speed-dial-content >
         <md-button @click="showDiaLog()" class="faq-button md-icon-button" title="Danh sách">
           <md-icon>directions</md-icon>
         </md-button>
 
-        <md-button class="faq-button md-icon-button">
+        <!-- <md-button class="faq-button md-icon-button">
           <md-icon>streetview</md-icon>
-        </md-button>
+        </md-button> -->
       </md-speed-dial-content>
     </md-speed-dial>
     <div v-show="isShow" class="infor-dialog maps">
@@ -57,25 +57,10 @@
           </tr>
         </tbody>
       </table>
-      <!-- <div
-        class="list_item" v-for="(l,index) in list" :key="index"
-        style="display:flex;justify-content:space-around;border-top:1px solid black;width:100%;justify-content:center"
-      >
-        <div style="display:flex;flex-direction:column">
-          <span>
-            <b>Biển số xe : {{ index + 1 }}</b>
-            {{l.car_information.c_plate}}
-          </span>
-          <span style="display:flex">
-            <md-button class="primary" @click="showDetailDialog = true;selectedIndex=index">Chi tiết</md-button>
-            <md-button class="danger" @click.stop.prevent="setCenter(l,$event)">Theo dõi</md-button>
-          </span>
-        </div>
-      </div> -->
     </div>
     <md-dialog md-fullscreen :md-active.sync="showDetailDialog">
       <div class="md-layout">
-        <div class="md-size-80 md-layout-item" style="padding:0">
+        <div class="md-size-75 md-layout-item" style="padding:0">
           <GmapMap
             v-if="selectedIndex!=null"
             :center="list[selectedIndex].location"
@@ -90,62 +75,38 @@
           </GmapMap>
         </div>
         <div class="md-layout-item">
-          <div
-            class="md-layout"
-            style="background:#3399ff;color:white;border-radius:20px;margin-top:5%"
-          >
-            <div class="md-layout-item">
-              <span style="height:30px;line-height:30px">Thông tin tài xế</span>
-              <!-- <small v-if="selectedIndex!=null">Vận tốc hiện tại: {{list[selectedIndex].speed}} km/h</small> -->
+          <!-- <div class="card" style="padding:0px; margin-top:15px;">
+            <div class="image" style="text-align: center; margin-top:15px;" >
+              <img class="card-img-top" src="../assets/img/driver-avatar.jpg" alt="Card image cap" style="width: 100px;">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" style="margin-bottom: 0px;text-align: center;font-size: 16px;">Huỳnh Quốc Đạt</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><label style="width: 30%;font-weight: 600;margin-bottom: 0px; ">Cấp bậc:</label>Trung úy</li>
+              <li class="list-group-item"><label style="width: 30%;font-weight: 600;margin-bottom: 0px;">Đơn vị:</label>Trung tâm CNTT & NN</li>
+              <li class="list-group-item"><label style="width: 30%;font-weight: 600;margin-bottom: 0px;">SĐT:</label>0963 227 299</li>
+            </ul>
+          </div> -->
+          <div class="card border-info" style="padding:0px; margin-top:15px;">
+            <div class="card-header" style="text-align: center;font-weight: 600;font-size: 16px;">
+              Thông tin xe - Hành trình
+            </div>
+            <div class="card-body text-info" style="padding:0px;">
+              <ul class="list-group list-group-flush">
+              <li class="list-group-item" v-if="selectedIndex!=null">
+                <label style="width: 30%;font-weight: 600;margin-bottom: 0px; ">Biển số:</label>{{list[selectedIndex].car_information.c_plate}}
+                </li>
+              <li class="list-group-item" v-if="selectedIndex!=null">
+                <label style="width: 30%;font-weight: 600;margin-bottom: 0px;">Vận tốc:</label>{{list[selectedIndex].speed}} km/h
+              </li>
+              <li class="list-group-item" style="background: none;border: none;"><label style="width: 30%;font-weight: 600;margin-bottom: 0px;">Hành trình:</label>Nha Trang - Đà Nẵng</li>
+            </ul>
             </div>
           </div>
-          <div class="md-layout">
-            <div class="md-layout-item" style="padding:0">
-              <div class="md-layout">
-                <div class="md-layout-item" style="padding:0">
-                  <img src="../assets/img/driver-avatar.jpg" style="height:30px;width:30px" />
-                </div>
-              </div>
-            </div>
-            <div class="md-layout-item md-size-70">
-              <div class="md-layout" style="display:flex">
-                <div class="md-layout-item">Nguyễn Văn A</div>
-                <div class="md-layout-item md-size-100">Ngày lái</div>
-                <div class="md-layout-item md-size-100">Chức vụ</div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="md-layout"
-            style="background:#3399ff;color:white;border-radius:20px;margin-top:5%"
-          >
-            <div class="md-layout-item">
-              <span style="height:30px;line-height:30px">Thông tin xe</span>
-            </div>
-          </div>
-          <div class="md-layout">
-            <div class="md-layout-item md-size-100">
-              <div class="md-layout" style="display:flex">
-                <div class="md-layout-item md-size-100" style="padding:0">
-                  <small v-if="selectedIndex!=null">
-                    <b>Biển số:</b>
-                    {{list[selectedIndex].car_information.c_plate}}
-                  </small>
-                </div>
-                <div class="md-layout-item md-size-100" style="padding:0">
-                  <small v-if="selectedIndex!=null">
-                    <b>Vận tốc hiện tại:</b>
-                    {{list[selectedIndex].speed}} km/h
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button type="button" class="btn btn-danger dong" @click="showDetailDialog = false" style="position: absolute;bottom: 0;right: 0;margin: 15px;">Đóng</button>
         </div>
       </div>
-      <md-dialog-actions>
-        <md-button class="md-primary" @click="showDetailDialog = false">Đóng</md-button>
-      </md-dialog-actions>
     </md-dialog>
   </div>
 </template>
@@ -215,6 +176,7 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 .md-dialog {
   min-width: 100%;

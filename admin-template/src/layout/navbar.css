@@ -213,3 +213,15 @@ span.md-dialog-title.md-title{
 .infor-dialog.maps .md-button.md-theme-default:hover{
   box-shadow: none
 }
+.panel{
+  margin-top: 15px;
+}
+li.list-group-item{
+  font-size: 14px;
+}
+.md-dialog.md-dialog-fullscreen.md-theme-default .md-layout-item div{
+  margin-bottom: 15px;
+}
+input::placeholder{
+  color: #000
+}

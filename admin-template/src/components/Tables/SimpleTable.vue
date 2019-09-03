@@ -10,7 +10,7 @@
         <md-table-cell md-label="Biển số xe ">{{ item.c_plate }}</md-table-cell>
         <md-table-cell md-label="Imei thiết bị">{{ item.d_IMEI }}</md-table-cell>
         <md-table-cell md-label="Loại xe">
-          <div v-for="i in item.category">
+          <div v-for="i in item.category" :key="i">
                <span>{{i.type}}</span>
           </div>
         </md-table-cell>
@@ -151,6 +151,20 @@ export default {
     });
   },
   methods: {
+    resetInput(){
+      this.input = {
+        c_plate: "",
+        c_IMEI: "",
+        category : null
+      }
+    },
+    resetEdit(){
+      this.edit  = {
+        c_plate: "",
+        c_IMEI: "",
+        category : null
+      }
+    },
     update(){
       updateCar({...this.edit,_id : this.selectedRecord._id}).then((result)=>{
         if (result instanceof Error){
@@ -164,6 +178,7 @@ export default {
               type: "success"
          })
          this.getList()
+         this.resetEdit()
         }
       })
     },
@@ -211,6 +226,7 @@ export default {
             type: "success"
           });
           this.getList();
+          this.resetInput();
         } else {
           this.$message({
             message: "Thông tin nhập vào đã tồn tại !",
