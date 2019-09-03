@@ -210,3 +210,6 @@ span.md-dialog-title.md-title{
     width: auto;
     display: inline-block;
 }
+.infor-dialog.maps .md-button.md-theme-default:hover{
+  box-shadow: none
+}
