@@ -16,7 +16,7 @@
       </md-speed-dial-target>
 
       <md-speed-dial-content>
-        <md-button @click="showDiaLog()" class="faq-button md-icon-button">
+        <md-button @click="showDiaLog()" class="faq-button md-icon-button" title="Danh sách">
           <md-icon>directions</md-icon>
         </md-button>
 
@@ -25,24 +25,45 @@
         </md-button>
       </md-speed-dial-content>
     </md-speed-dial>
-    <div v-show="isShow" class="infor-dialog">
+    <div v-show="isShow" class="infor-dialog maps">
       <div @click="isShow=false" class="close_button" style="position:absolute;top:0;right:0">
         <md-icon>close</md-icon>
       </div>
-      <div style="text-align:center">
+      <div class="title" style="text-align:center">
         <h3>
           <b>Danh sách xe đang hoạt động</b>
         </h3>
       </div>
-      <div
-        class="list_item"
-        v-for="(l,index) in list"
-        :key="index"
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Biển số</th>
+            <th scope="col">Lịch trình</th>
+            <th scope="col" style="width: 36%;">Hành động</th>
+          </tr>
+        </thead>
+        <tbody v-for="(l,index) in list" :key="index">
+          <tr>
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{l.car_information.c_plate}}</td>
+            <td>Nha Trang - Đà Nẵng</td>
+            <td>
+              <span>
+                <md-button class="primary" @click="showDetailDialog = true;selectedIndex=index">Chi tiết</md-button>
+                <md-button class="danger" @click.stop.prevent="setCenter(l,$event)">Theo dõi</md-button>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div
+        class="list_item" v-for="(l,index) in list" :key="index"
         style="display:flex;justify-content:space-around;border-top:1px solid black;width:100%;justify-content:center"
       >
         <div style="display:flex;flex-direction:column">
           <span>
-            <b>Biển số xe :</b>
+            <b>Biển số xe : {{ index + 1 }}</b>
             {{l.car_information.c_plate}}
           </span>
           <span style="display:flex">
@@ -50,9 +71,8 @@
             <md-button class="danger" @click.stop.prevent="setCenter(l,$event)">Theo dõi</md-button>
           </span>
         </div>
-      </div>
+      </div> -->
     </div>
-    <!-- Đây là dialog --->
     <md-dialog md-fullscreen :md-active.sync="showDetailDialog">
       <div class="md-layout">
         <div class="md-size-80 md-layout-item" style="padding:0">
@@ -235,7 +255,7 @@ export default {
 }
 .infor-dialog {
   position: absolute;
-  width: 400px;
+  width: 600px;
   top: 0;
   right: 0;
   margin-top: 10%;
@@ -247,5 +267,22 @@ export default {
 .list_item:hover {
   cursor: pointer;
   background: #e6e6e6;
+}
+.title h3{
+  font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0px;
+    padding: 15px 0px;
+}
+.list_item{
+  border-top: 1px solid #dee2e6 !important;
+}
+.close_button{
+  padding:13px;
+  border-left: 1px solid #dee2e6;
+}
+table{
+  margin-bottom:0px;
 }
 </style>

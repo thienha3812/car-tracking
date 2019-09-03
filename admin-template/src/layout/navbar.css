@@ -200,3 +200,13 @@ span.md-dialog-title.md-title{
 .md-content.md-table-content.md-scrollbar.md-theme-default{
   padding: 15px !important;
 }
+.infor-dialog.maps .md-button.md-theme-default{
+  margin: 0px 2px;
+  width: auto;
+  display: inline-block;
+}
+.infor-dialog.maps .md-button.md-theme-default .md-ripple{
+  padding: 10px !important;
+    width: auto;
+    display: inline-block;
+}

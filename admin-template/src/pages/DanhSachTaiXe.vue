@@ -31,7 +31,7 @@
                 <md-table-cell md-label="Cấp bậc ">{{ item.dr_rank }}</md-table-cell>
                 <md-table-cell md-label="Đơn vị">{{ item.dr_unit }}</md-table-cell>
                 <md-table-cell md-label="Thao tác">
-                  <button type="button" title="Xem" class="btn btn-info">
+                  <button type="button" title="Xem" class="btn btn-info" @click="selectemRow=item;viewDialog=true">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                   </button>
                   <button
@@ -96,8 +96,18 @@
         <b-button variant="success"  @click="add();active=false"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</b-button>
       </md-dialog-actions>
     </md-dialog>
+    <md-dialog :md-active.sync="viewDialog">
+      <md-dialog-title>Xem thông tin tài xế</md-dialog-title>
+      <md-content>
+        <div class="md-layout">
+          <div class="md-layout-item">
+              <img :src="selectedRow.dr_avatar" />
+          </div>
+        </div>
+      </md-content>
+    </md-dialog>
     <md-dialog :md-active.sync="editDialog">
-      <md-dialog-title>Sửa thông tin xe</md-dialog-title>
+      <md-dialog-title>Sửa thông tin tài xế</md-dialog-title>
       <md-content>
          <div>
           <input v-model="edit.dr_name" :placeholder="selectedRow.dr_name"  class="add_form" />
@@ -159,6 +169,7 @@ export default {
   data() {
     return {
       vi : vi,
+      viewDialog : false,
       currentPage : 10,
       perPage : 10,
       optionsSearch:[
@@ -280,10 +291,8 @@ export default {
     },
     getList() {
       this.drivers = [];
-      getAllDriver().then(result => {
-        console.log(result)
-        this.drivers = result.data;
-        console.log(this.drivers)
+      getAllDriver().then(result => {        
+        this.drivers = result.data;        
       });
     },
     add() {
@@ -314,6 +323,7 @@ export default {
   mounted() {    
     getAllDriver().then(result => {
       this.drivers = result.data;
+      console.log(this.drivers)
     });
   }
 };
