@@ -4,6 +4,9 @@ var Driver = require("../model/Driver");
 var formidable = require("formidable");
 var uuid = require("uuid");
 var boom = require("boom");
+
+
+
 router.get("/getall", function(req, res, next) {
   Driver.find({}, function(err, result) {
     if (err) throw err;
@@ -13,7 +16,7 @@ router.get("/getall", function(req, res, next) {
 router.post("/insert", function(req, res, next) {
   var fileName = uuid.v4();
   var form = new formidable.IncomingForm();
-  var filePath = process.env.IP + "/image/" + fileName;
+  var filePath = process.env.IP + "/image/" + fileName;  
   form.parse(req, async (err, fields, files) => {
     let fileType = "";
     if (files["dr_avatar"].type == "image/png") {

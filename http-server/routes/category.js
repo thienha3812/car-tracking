@@ -14,6 +14,7 @@ router.get('/getall',function(req,res,next){
     Category.find({}).then(result=>{
         res.send(result)
     }).catch(err=>{
+        console.log(err)
         res.status(500).send("Xảy ra lỗi !")
     })
 })

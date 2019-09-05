@@ -96,7 +96,7 @@
         <b-button variant="success"  @click="add();active=false"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</b-button>
       </md-dialog-actions>
     </md-dialog>
-    <md-dialog :md-active.sync="viewDialog">
+    <md-dialog :md-active.sync="viewDialog" v-if="selectedRow">
       <md-dialog-title>Xem thông tin tài xế</md-dialog-title>
       <md-content>
         <div class="md-layout">
@@ -127,33 +127,49 @@
         <b-button variant="danger" class="mr-2" @click="viewDialog=false"><i class="fa fa-times " aria-hidden="true"></i> Hủy</b-button>        
       </md-dialog-actions>
     </md-dialog>
-    <md-dialog :md-active.sync="editDialog">
+    <md-dialog :md-active.sync="editDialog" class="edit-dialog">
       <md-dialog-title>Sửa thông tin tài xế</md-dialog-title>
       <md-content>
          <div>
-          <input v-model="edit.dr_name" :placeholder="selectedRow.dr_name"  class="add_form" />
+           <b-form-group label="Tên tài xế: " label-cols-sm="2">
+            <input v-model="edit.dr_name" :placeholder="selectedRow.dr_name"  class="add_form" />
+           </b-form-group>
         </div>
         <div>
+          <b-form-group label="Ngày sinh: " label-cols-sm="2">
           <Datepicker style="width:100%" v-model="edit.dr_birthday" :language="vi"  :placeholder="parseDate(selectedRow.dr_birthday)"></Datepicker> </Datepicker>
+          </b-form-group>
         </div>
         <div>
-          <b-form-file placeholder="Ảnh đại diện" v-model="edit.dr_avatar" drop-placeholder="Drop file here..."></b-form-file>
+          <b-form-group label="Ảnh đại diện: " label-cols-sm="2">
+            <b-form-file placeholder="Ảnh đại diện" v-model="edit.dr_avatar" drop-placeholder="Drop file here..."></b-form-file>
+          </b-form-group>
         </div>
        <div>
-          <input v-model="edit.dr_card" class="add_form" :placeholder="selectedRow.dr_card" />
+          <b-form-group label="CMND: " label-cols-sm="2">
+            <input v-model="edit.dr_card" class="add_form" :placeholder="selectedRow.dr_card" />
+          </b-form-group>
         </div>
 
         <div>
+          <b-form-group label="CMND: " label-cols-sm="2">
           <input v-model="edit.dr_phone" class="add_form" :placeholder="selectedRow.dr_phone" />
+          </b-form-group>
         </div>
         <div>
-          <input v-model="edit.dr_unit" class="add_form" :placeholder="selectedRow.dr_unit" />
+          <b-form-group label="Đơn vị: " label-cols-sm="2">
+            <input v-model="edit.dr_unit" class="add_form" :placeholder="selectedRow.dr_unit" />
+          </b-form-group>
         </div>
         <div>
-          <b-form-select v-model="this.selectedRow.dr_sex" :options="optionsSex"></b-form-select>
+          <b-form-group label="Giới tính: " label-cols-sm="2">
+            <b-form-select v-model="selectedRow.dr_sex" :options="optionsSex"></b-form-select>
+          </b-form-group>
         </div>
         <div>
-          <b-form-select v-model="this.selectedRow.dr_rank" :options="optionsLevel"></b-form-select>
+          <b-form-group label="Cấp bậc: " label-cols-sm="2">
+            <b-form-select v-model="selectedRow.dr_rank" :options="optionsLevel"></b-form-select>
+          </b-form-group>
         </div>
       </md-content>
       <md-dialog-actions>        
@@ -201,9 +217,11 @@ export default {
         { value: null, text: "Cấp bậc" },
         { value : "Thiếu uý",text:"Thiếu uý" },
         { value : "Trung uý",text:"Trung uý" },
+        { value : "Thượng uý",text:"Thượng uý" },
         { value : "Đại uý",text:"Đại uý" },
         { value : "Thiếu tá",text:"Thiếu tá" },
         { value : "Trung tá",text:"Trung tá" },
+        { value : "Thượng tá",text:"Thượng tá" },
         { value : "Đại tá",text:"Đại tá" },
       ],
 
@@ -252,18 +270,16 @@ export default {
         dr_name: "",
         dr_birthday: "",
         dr_card: "",
-        dr_sex : null,
         dr_avatar : "",
         dr_phone : "",
         dr_rank : null        
       }
     },
-    parseDate(time){
-      console.log(time)
+    parseDate(time){    
       let date = new Date(time).getDate()
       let month = new Date(time).getMonth()  + 1
       let year = new Date(time).getFullYear()
-      return "Ngày" + " "+  date + "Tháng" + " "+ + month + "Năm" +" "+ year
+      return "Ngày" + " "+  date + " Tháng" + " "+ + month + " Năm" +" "+ year
     },
     resetForm(){
       this.edit = {
@@ -272,7 +288,6 @@ export default {
         dr_name: "",
         dr_birthday: "",
         dr_card: "",
-        dr_sex : null,
         dr_avatar : "",
         dr_phone : "",
         dr_rank : null   
@@ -325,8 +340,8 @@ export default {
           this.getList();
         });
     },
-    update() {      
-      updateDriver({ ...this.edit, _id: this.selectedRow._id,dr_birthday : new Date(this.edit.dr_birthday).toISOString(), dr_rank : this.selectedRow.dr_rank })
+    update() {                
+      updateDriver({ ...this.edit, _id: this.selectedRow._id,dr_birthday : new Date(this.edit.dr_birthday || this.selectedRow.dr_birthday).toISOString() || '', dr_rank : this.selectedRow.dr_rank,dr_sex : this.selectedRow.dr_sex})
         .then(result => {
           if (result.status === 200) {
             this.$message({ type: "success", message: "Sửa thành công" });
@@ -397,6 +412,9 @@ export default {
 }
 .md-dialog {
   min-width: 50%;
+}
+.edit-dialog{
+  min-height: 90%;
 }
 </style>
 <style module lang="scss">

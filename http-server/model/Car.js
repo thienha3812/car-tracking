@@ -15,6 +15,13 @@ var CarSchema = new Schema(
     },
     category: [
       { type: Schema.Types.ObjectId, ref: "Category" }
+    ],
+    manufacture : {
+      type : String,
+      default : ""
+    },
+    driver: [
+      { type: Schema.Types.ObjectId, ref: "Driver"}
     ]
   },
   {
