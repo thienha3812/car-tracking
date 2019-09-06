@@ -8,7 +8,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Số xe đang hoạt động</span>
-              <span class="info-box-number">12<small> xe</small></span>
+              <span class="info-box-number">{{deviceOnline}}<small> xe</small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -21,7 +21,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Tổng số xe</span>
-              <span class="info-box-number">50<small> xe</small></span>
+              <span class="info-box-number">{{numberCar}}<small> xe</small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -38,7 +38,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Tổng số tài xế</span>
-              <span class="info-box-number">70<small> tài xế</small></span>
+              <span class="info-box-number">{{numberDriver}}<small> tài xế</small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -59,6 +59,32 @@
     </div>
   </div>
 </template>
+<script>
+import { getAllCar } from '../api/car'
+import { getAllDriver} from '../api/driver'
+import {getDeviceOnline} from '../api/device'
+export default {
+  name : "Dashboard",
+  data () {
+    return { 
+      numberDriver : null,
+      numberCar : null,
+      deviceOnline : null
+    }
+  },
+  mounted() {
+    getAllCar().then((result)=>{
+      this.numberCar  = result.data.length  
+    })
+    getAllDriver().then((result)=>{
+      this.numberDriver  = result.data.length  
+    })
+    getDeviceOnline().then((result)=>{
+      this.deviceOnline = result.data.length
+    })
+  },
+}
+</script>
 <style>
 .info-box-icon {
   border-top-left-radius: 2px;

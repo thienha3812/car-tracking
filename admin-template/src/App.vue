@@ -18,12 +18,14 @@ export default {};
 .vdp-datepicker__calendar {
   width: 600px !important;
 }
+.md-dialog {
+  max-height: 100% !important;
+}
 .el-range-separator {
   width: 20% !important;
 }
 .el-date-editor {
   width: 100% !important;
 }
-
 </style>
 

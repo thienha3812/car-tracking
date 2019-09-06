@@ -414,7 +414,7 @@ export default {
   min-width: 50%;
 }
 .edit-dialog{
-  min-height: 90%;
+  min-height: 100% !important;
 }
 </style>
 <style module lang="scss">

@@ -19,6 +19,7 @@ var logRouter = require('./routes/log');
 var categoryRouter = require('./routes/category');
 var userRouter = require("./routes/user");
 var fileRouter = require("./routes/file");
+var deviceRouter = require("./routes/device");
 var app = express();
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
@@ -43,6 +44,7 @@ app.use('/log', logRouter)
 app.use('/category', categoryRouter)
 app.use('/user', userRouter)
 app.use('/file', fileRouter)
+app.use("/device",deviceRouter)
 // Disable e-tag
 app.disable('etag')
 // Config session

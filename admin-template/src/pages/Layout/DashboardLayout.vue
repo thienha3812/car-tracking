@@ -49,7 +49,8 @@ import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 import MobileMenu from "@/pages/Layout/MobileMenu.vue";
-
+import { getAllDriver} from '../../api/driver'
+import { getAllCar} from '../../api/car'
 export default {
   components: {
     TopNavbar,
