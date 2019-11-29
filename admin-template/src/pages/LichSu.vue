@@ -2,19 +2,19 @@
   <div class="content">
     <div class="md-layout d-flex flex-column">
       <div class="md-layout-item ">
-        <div class="md-layout ">          
-          <div class="md-layout-item md-size-30" style="padding:0">            
+        <div class="md-layout ">
+          <div class="md-layout-item md-size-30" style="padding:0">
             <Datepicker
               :language="vi"
               :selected="onSelected"
               v-model="selectedDate"
-              placeholder="Chọn mốc thời gian"          
+              placeholder="Chọn mốc thời gian"
             ></Datepicker>
           </div>
         </div>
       </div>
-      <div class="md-layout-item ">        
-        <md-card>          
+      <div class="md-layout-item ">
+        <md-card>
           <md-card-content>
             <md-table v-model="cars">
               <md-table-row
@@ -25,15 +25,26 @@
               >
                 <md-table-cell md-label="IMEI">{{ item.d_IMEI }}</md-table-cell>
                 <md-table-cell md-label="Thao tác">
-                  <md-button
-                    class="md-raised delete_btn"
-                    @click="activeDialog=true;selectedRecord=item.location;currentM=item.location"
-                  >Xem chặng</md-button>
-                  <md-button
-                    style="margin-left:5%"
+                  <button
+                    type="button"
+                    title="Xem"
+                    class="btn btn-info"
+                    @click="
+                      activeDialog = true;
+                      selectedRecord = item.location;
+                      currentM = item.location;
+                    "
+                  >
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Xem"
+                    class="btn btn-danger ml-2"
                     @click="$refs.fileInput1.click()"
-                    class="md-raised delete_btn"
-                  >Xem từ file</md-button>
+                  >
+                    <i class="fa fa-file" aria-hidden="true"></i>
+                  </button>
                   <input
                     type="file"
                     ref="fileInput1"
@@ -51,16 +62,24 @@
       <div class="md-layout">
         <div class="md-layout-item md-size-80" style="padding:0">
           <GmapMap
-            :center="{lat:latCenter, lng:lngCenter}"
+            :center="{ lat: latCenter, lng: lngCenter }"
             :zoom="14"
             style="width: 100%; height: 100vh"
           >
-            <gmap-marker v-for="(m,index) in selectedRecord" :key="index" :position="m"></gmap-marker>
+            <gmap-marker
+              v-for="(m, index) in selectedRecord"
+              :key="index"
+              :icon="markerOptions"
+              :position="m"
+            ></gmap-marker>
           </GmapMap>
         </div>
         <div class="md-layout-item" style="padding:0">
           <div class="md-layout" style="margin-top:10%"></div>
-          <div class="md-layout" style="margin-top:10%;flex-direction:column;align-items:center">
+          <div
+            class="md-layout"
+            style="margin-top:10%;flex-direction:column;align-items:center"
+          >
             <div class="md-layout-item">
               <h3>
                 <b>Khoảng thời gian chạy</b>
@@ -77,23 +96,33 @@
               ></el-time-picker>
             </div>
             <div class="md-layout-item">
-              <md-button style="background: #ff5252 !important;" @click="activeDialog=false">Đóng</md-button>
+              <b-button variant="danger" @click="activeDialog=false">Đóng</b-button>              
             </div>
           </div>
         </div>
       </div>
-    </md-dialog>  
-     <md-dialog v-if="recordFromFile.length>0" class="mapDialog" md-fullscreen :md-active.sync="activeDialogFromFile">
+    </md-dialog>
+    <md-dialog
+      v-if="recordFromFile.length > 0"
+      class="mapDialog"
+      md-fullscreen
+      :md-active.sync="activeDialogFromFile"
+    >
       <div class="md-layout">
         <div class="md-layout-item md-size-100" style="padding:0">
           <GmapMap
-            :center="{lat:recordFromFile[0].lat, lng:recordFromFile[0].lng}"
+            :center="{ lat: recordFromFile[0].lat, lng: recordFromFile[0].lng }"
             :zoom="10"
             style="width: 100%; height: 100vh"
           >
-            <gmap-marker v-for="(m,index) in recordFromFile" :key="index" :position="m"></gmap-marker>
+            <gmap-marker
+              v-for="(m, index) in recordFromFile"
+              :icon="markerOptions"
+              :key="index"
+              :position="m"
+            ></gmap-marker>
           </GmapMap>
-        </div>       
+        </div>
       </div>
     </md-dialog>
   </div>
@@ -126,8 +155,8 @@ export default {
     return {
       selectedDate: "",
       vi: vi,
-      activeDialogFromFile : false,  
-      recordFromFile : [],    
+      activeDialogFromFile: false,
+      recordFromFile: [],
       en: en,
       cars: [],
       endTime: false,
@@ -140,31 +169,34 @@ export default {
       m: [],
       value1: [],
       valueTime: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-      currentM: []
+      currentM: [],
+      markerOptions: {        
+        size: { width: 60, height: 90, f: "px", b: "px" },
+        scaledSize: { width: 30, height: 45, f: "px", b: "px" }
+      }
     };
   },
   methods: {
     onFileChange(e) {
-      var vm = this
-      var files = e.target.files || e.dataTransfer.files
-      var r = new FileReader()
+      var vm = this;
+      var files = e.target.files || e.dataTransfer.files;
+      var r = new FileReader();
       r.onload = function(result) {
-        var listData = result.currentTarget.result.toString().split('\n')
-        for(var i=0;i < listData.length;i++){
-            let gps = listData[i].split(',')
-            let status = gps[1]
-            let time = gps[2]
-            let lat = parseFloat(gps[3])
-            let lng = parseFloat(gps[4])
-            let speed  = gps[6]
-            if(status == 1){
-              vm.recordFromFile.push({lat:lat,lng:lng,time:time})
-            }
-
+        var listData = result.currentTarget.result.toString().split("\n");
+        for (var i = 0; i < listData.length; i++) {
+          let gps = listData[i].split(",");
+          let status = gps[1];
+          let time = gps[2];
+          let lat = parseFloat(gps[3]);
+          let lng = parseFloat(gps[4]);
+          let speed = gps[6];
+          if (status == 1) {
+            vm.recordFromFile.push({ lat: lat, lng: lng, time: time });
+          }
         }
-      };     
-      this.activeDialogFromFile = true
-      r.readAsText(files[0])
+      };
+      this.activeDialogFromFile = true;
+      r.readAsText(files[0]);
     },
     onSelected() {},
     startToTimeChange(e) {
@@ -185,7 +217,7 @@ export default {
           return x;
         }
       });
-      this.selectedRecord = []; // Reset mảng về mặc định 
+      this.selectedRecord = []; // Reset mảng về mặc định
       this.selectedRecord = a;
     }
   },
