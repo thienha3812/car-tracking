@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tracking.Acl_allows__car_insert"},{"v":2,"key":{"_bucketname":1,"key":1},"name":"_bucketname_1_key_1","ns":"tracking.Acl_allows__car_insert"}],"uuid":"a41d067b6f2845cda49a5087f6fa8a8a"}
